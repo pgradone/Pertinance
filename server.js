@@ -1,3 +1,7 @@
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config();
+}
+
 const express = require('express');
 const app = express();
 const expressLayouts = require('express-ejs-layouts');
@@ -12,6 +16,7 @@ app.use(express.static('public'));
 
 const mongoose = require('mongoose');
 mongoose.connect(process.env.DATABASE_URL, {
+  useUnifiedTopology: true,
   useNewUrlParser: true,
 });
 const db = mongoose.connection;
