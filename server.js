@@ -7,6 +7,7 @@ const app = express();
 const expressLayouts = require('express-ejs-layouts');
 
 const indexRouter = require('./routes/index');
+const kwdRouter = require('./routes/kwds');
 
 app.set('view engine', 'ejs');
 app.set('views', __dirname + '/views');
@@ -24,5 +25,6 @@ db.on('error', (error) => console.error(error));
 db.once('open', () => console.log('Connected to Mongoose'));
 
 app.use('/', indexRouter);
+app.use('/kwds', kwdRouter);
 
 app.listen(process.env.PORT || 3000);
