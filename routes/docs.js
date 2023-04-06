@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const Doc = require('../models/doc');
 
 // All DOCs route
 router.get('/', (req, res) => {
@@ -8,7 +9,7 @@ router.get('/', (req, res) => {
 
 // New DOCs route
 router.get('/new', (req, res) => {
-  res.render('docs/new');
+  res.render('docs/new', { doc: new Doc() });
 });
 
 // Create DOC route
