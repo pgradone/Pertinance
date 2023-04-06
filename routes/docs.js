@@ -13,21 +13,19 @@ router.get('/new', (req, res) => {
 });
 
 // Create DOC Route
-router.post('/', (req, res) => {
+router.post('/', async (req, res) => {
   const doc = new Doc({
     docName: req.body.name,
   });
-  doc.save((err, newDoc) => {
-    if (err) {
-      res.render('docs/new', {
-        doc: doc,
-        errorMessage: 'Error creating DOCument',
-      });
-    } else {
-      // res.redirect(`docs/${newDoc.id}`);
-      res.redirect('docs');
-    }
-  });
+  try {
+    const newDoc = await doc.save();
+    // res.redirect(`docs/${newDoc.id}`);
+    res.redirect('docs');
+  } catch {
+    res.render('docs/new', {
+      doc: doc,
+      errorMessage: 'Error creating DOCument',
+    });
+  }
 });
-
 module.exports = router;
