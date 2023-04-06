@@ -14,7 +14,20 @@ router.get('/new', (req, res) => {
 
 // Create DOC Route
 router.post('/', (req, res) => {
-  res.send(req.body.name);
+  const doc = new Doc({
+    docName: req.body.name,
+  });
+  doc.save((err, newDoc) => {
+    if (err) {
+      res.render('docs/new', {
+        doc: doc,
+        errorMessage: 'Error creating DOCument',
+      });
+    } else {
+      // res.redirect(`docs/${newDoc.id}`);
+      res.redirect('docs');
+    }
+  });
 });
 
 module.exports = router;
