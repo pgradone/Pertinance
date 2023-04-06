@@ -12,7 +12,7 @@ router.get('/new', (req, res) => {
   res.render('docs/new', { doc: new Doc() });
 });
 
-// Create DOC route
+// Create DOC Route
 router.post('/', (req, res) => {
   res.send('Create DOC');
 });
