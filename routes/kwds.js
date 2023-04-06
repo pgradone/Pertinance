@@ -11,4 +11,9 @@ router.get('/new', (req, res) => {
   res.render('kwds/new');
 });
 
+// Create KWD route
+router.post('/', (req, res) => {
+  res.send('Create KWD');
+});
+
 module.exports = router;
