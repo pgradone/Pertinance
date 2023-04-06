@@ -3,8 +3,13 @@ const router = express.Router();
 const Doc = require('../models/doc');
 
 // All DOCs route
-router.get('/', (req, res) => {
-  res.render('docs/index');
+router.get('/', async (req, res) => {
+  try {
+    const docs = await Doc.find({});
+    res.render('docs/index', { docs: docs });
+  } catch {
+    res.redirect('/');
+  }
 });
 
 // New DOCs route
@@ -19,7 +24,7 @@ router.post('/', async (req, res) => {
   });
   try {
     const newDoc = await doc.save();
-    // res.redirect(`docs/${newDoc.id}`);
+    res.redirect(`docs/${newDoc.id}`);
     res.redirect('docs');
   } catch {
     res.render('docs/new', {

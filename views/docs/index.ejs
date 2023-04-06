@@ -1,1 +1,10 @@
-All DOCs
+<h2>Search DOCs</h2>
+<form action="/docs" method="Get">
+  <label>DocName</label>
+  <input type="text" name="name" />
+  <button type="submit">Search</button>
+</form>
+<br />
+<% docs.array.forEach(doc => { %>
+<div><% doc.docName %></div>
+<% }) %>
