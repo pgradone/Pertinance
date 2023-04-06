@@ -14,7 +14,7 @@ router.get('/new', (req, res) => {
 
 // Create DOC Route
 router.post('/', (req, res) => {
-  res.send('Create DOC');
+  res.send(req.body.name);
 });
 
 module.exports = router;
