@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const docSchema = new mongoose.Schema({
   ID_DOC: {
     type: Number,
-    required: true,
+    required: false,
   },
   docName: {
     type: String,
@@ -11,11 +11,11 @@ const docSchema = new mongoose.Schema({
   },
   docText: {
     type: String,
-    required: true,
+    required: false,
   },
   docElement: {
     type: String,
-    required: true,
+    required: false,
   },
 });
 
