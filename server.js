@@ -9,8 +9,9 @@ const bodyParser = require('body-parser');
 
 const indexRouter = require('./routes/index');
 const docRouter = require('./routes/docs');
-const fldRouter = require('./routes/flds');
 const kwdRouter = require('./routes/kwds');
+const fldRouter = require('./routes/flds');
+const mapRouter = require('./routes/maps');
 
 app.set('view engine', 'ejs');
 app.set('views', __dirname + '/views');
@@ -32,5 +33,6 @@ app.use('/', indexRouter);
 app.use('/docs', docRouter);
 app.use('/flds', fldRouter);
 app.use('/kwds', kwdRouter);
+app.use('/maps', mapRouter);
 
 app.listen(process.env.PORT || 3000);
