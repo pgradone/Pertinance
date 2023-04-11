@@ -4,9 +4,13 @@ const Doc = require('../models/doc');
 
 // All DOCs route
 router.get('/', async (req, res) => {
+  let searchOptions = {};
+  if (req.query.docName != null && req.query.docName !== '') {
+    searchOptions.docName = new RegExp(req.query.docName, 'i');
+  }
   try {
-    const docs = await Doc.find({});
-    res.render('docs/index', { docs: docs });
+    const docs = await Doc.find(searchOptions);
+    res.render('docs/index', { docs: docs, searchOptions: req.query });
   } catch {
     res.redirect('/');
   }
