@@ -20,7 +20,7 @@ router.get('/new', (req, res) => {
 // Create DOC Route
 router.post('/', async (req, res) => {
   const doc = new Doc({
-    docName: req.body.name,
+    docName: req.body.docName,
   });
   try {
     const newDoc = await doc.save();
