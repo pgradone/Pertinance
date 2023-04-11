@@ -24,7 +24,7 @@ router.post('/', async (req, res) => {
   });
   try {
     const newDoc = await doc.save();
-    res.redirect(`docs/${newDoc.id}`);
+    // res.redirect(`docs/${newDoc.id}`);
     res.redirect(`docs`);
   } catch {
     res.render('docs/new', {
