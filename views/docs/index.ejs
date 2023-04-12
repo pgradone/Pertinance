@@ -3,8 +3,12 @@
   <label>DocName</label>
   <input type="text" name="docName" value="<%= searchOptions.docName %>" />
   <button type="submit">Search</button>
+  <label>DocText</label>
+  <input type="text" name="docText" value="<%= searchOptions.docText %>" />
+  <button type="submit">Search</button>
 </form>
 <br />
-<% docs.forEach(doc => { %>
+<% docs.forEach(doc => { %> //
 <div><%= doc.docName %></div>
+<div><%= doc.docText %></div>
 <% }) %>

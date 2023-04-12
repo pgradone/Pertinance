@@ -9,10 +9,10 @@ const docSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  // docText: {
-  //   type: String,
-  //   required: false,
-  // },
+  docText: {
+    type: String,
+    required: false,
+  },
   // docElement: {
   //   type: String,
   //   required: false,
