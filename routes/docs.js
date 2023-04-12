@@ -8,6 +8,9 @@ router.get('/', async (req, res) => {
   if (req.query.docName != null && req.query.docName !== '') {
     searchOptions.docName = new RegExp(req.query.docName, 'i');
   }
+  if (req.query.docText != null && req.query.docText !== '') {
+    searchOptions.docText = new RegExp(req.query.docText, 'i');
+  }
   try {
     const docs = await Doc.find(searchOptions);
     res.render('docs/index', { docs: docs, searchOptions: req.query });
