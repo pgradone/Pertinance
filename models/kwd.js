@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const kwdSchema = new mongoose.Schema({
   keyWord: {
-    type: string,
+    type: String,
     required: true,
   },
   // mainKeyWord: {
@@ -11,4 +11,4 @@ const kwdSchema = new mongoose.Schema({
   // },
 });
 
-module.exports = mongoose.model('Kwd', fldSchema);
+module.exports = mongoose.model('Kwd', kwdSchema);

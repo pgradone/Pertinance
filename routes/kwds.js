@@ -1,19 +1,36 @@
 const express = require('express');
 const router = express.Router();
+const Kwd = require('../models/kwd');
 
 // All KWDs Route
-router.get('/', (req, res) => {
-  res.render('kwds/index');
+router.get('/', async (req, res) => {
+  try {
+    const kwds = await Kwd.find();
+    res.render('kwds/index', { kwds: kwds });
+  } catch {
+    res.redirect('/');
+  }
 });
 
 //New KWDs Route
 router.get('/new', (req, res) => {
-  res.render('kwds/new');
+  res.render('kwds/new', { kwd: new Kwd() });
 });
 
 // Create KWD route
-router.post('/', (req, res) => {
-  res.send('Create KWD');
+router.post('/', async (req, res) => {
+  const kwd = new Kwd({
+    keyWord: req.body.keyWord,
+  });
+  try {
+    const newKwd = await kwd.save();
+    res.redirect(`kwds`);
+  } catch {
+    res.render('kwds/new', {
+      kwd: kwd,
+      errorMessage: 'Error creating Keyword',
+    });
+  }
 });
 
 module.exports = router;
