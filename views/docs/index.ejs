@@ -1,10 +1,18 @@
 <h2>Search DOCs</h2>
 <form action="/docs" method="GET">
+  <label>Id_Doc</label>
+  <input type="number" name="Id_Doc" value="<%= searchOptions.Id_Doc %>" />
   <label>DocName</label>
   <input type="text" name="docName" value="<%= searchOptions.docName %>" />
   <br />
   <label>DocText</label>
   <input type="text" name="docText" value="<%= searchOptions.docText %>" />
+  <label>DocElement</label>
+  <input
+    type="text"
+    name="docElement"
+    value="<%= searchOptions.docElement %>"
+  />
   <br />
   <button type="submit">Search</button>
 </form>
