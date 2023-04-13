@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const fldSchema = new mongoose.Schema({
   field: {
-    type: Number,
+    type: String,
     required: true,
   },
 });
