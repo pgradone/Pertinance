@@ -2,6 +2,12 @@
 <form action="/kwds" method="GET">
   <label>keyWord</label>
   <input type="text" name="keyWord" value="<%= searchOptions.keyWord %>" />
+  <label>mainKeyWord</label>
+  <input
+    type="text"
+    name="mainKeyword"
+    value="<%= searchOptions.mainKeyword %>"
+  />
   <br />
   <button type="submit">Search</button>
 </form>

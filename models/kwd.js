@@ -5,10 +5,10 @@ const kwdSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  // mainKeyWord: {
-  //   type: Object,
-  //   required: false,
-  // },
+  mainKeyWord: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Kwd',
+  },
 });
 
 module.exports = mongoose.model('Kwd', kwdSchema);

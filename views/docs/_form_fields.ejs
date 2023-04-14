@@ -1,10 +1,18 @@
-<label>Id_Doc</label>
-<input type="number" name="Id_Doc" value="<%= doc.Id_Doc %>" />
-<label>docName*</label>
-<input type="text" name="docName" value="<%= doc.docName %>" />
+<div>
+  <label>Id_Doc</label>
+  <input type="number" name="Id_Doc" value="<%= doc.Id_Doc %>" />
+</div>
+<div>
+  <label>docName*</label>
+  <input type="text" name="docName" value="<%= doc.docName %>" />
+</div>
 <br />
-<label>docText</label>
-<input type="text" name="docText" value="<%= doc.docText %>" />
+<div>
+  <label>docText</label>
+  <textarea type="text" name="docText"><%= doc.docText %></textarea>
+</div>
 <br />
-<label>docElement</label>
-<input type="text" name="docElement" value="<%= doc.docElement %>" />
+<div>
+  <label>docElement</label>
+  <input type="text" name="docElement" value="<%= doc.docElement %>" />
+</div>

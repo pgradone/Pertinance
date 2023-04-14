@@ -1,2 +1,14 @@
-<label>keyWord</label>
-<input type="text" name="keyWord" value="<%= kwd.keyWord %>" />
+<div>
+  <label>keyWord</label>
+  <input type="text" name="keyWord" value="<%= kwd.keyWord %>" />
+</div>
+<div>
+  <label>mainKeyWord</label>
+  <select name="mainKeyWord">
+    <% kwds.forEach(kwd => { %> <% if (kwd.id === kwd.kwd) { %>
+    <option selected label="<%=kwd.keyWord %>" value="<%= kwd.id %>"></option>
+    <% } else { %>
+    <option label="<%=kwd.keyWord %>" value="<%= kwd.id %>"></option>
+    <% } %> <% }) %>
+  </select>
+</div>
