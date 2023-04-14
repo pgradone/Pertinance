@@ -6,7 +6,7 @@ const Doc = require('../models/doc');
 router.get('/', async (req, res) => {
   let searchOptions = {};
   if (req.query.Id_Doc != null && req.query.Id_Doc !== '') {
-    searchOptions.Id_Doc = req.query.ID_Doc;
+    searchOptions.Id_Doc = new req.query.ID_Doc();
   }
   if (req.query.docName != null && req.query.docName !== '') {
     searchOptions.docName = new RegExp(req.query.docName, 'i');

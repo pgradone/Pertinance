@@ -1,4 +1,11 @@
 <h2>All KWDs</h2>
+<form action="/kwds" method="GET">
+  <label>keyWord</label>
+  <input type="text" name="keyWord" />
+  <br />
+  <button type="submit">Search</button>
+</form>
+<br />
 <% kwds.forEach(kwd => { %>
 <div><%= kwd.keyWord %></div>
 <% }) %>

@@ -4,8 +4,12 @@ const Kwd = require('../models/kwd');
 
 // All KWDs Route
 router.get('/', async (req, res) => {
+  let searchOptions = {};
+  if (req.query.keyWord != null && req.query.keyWord !== '') {
+    searchOptions.keyWord = new RegExp(req.query.keyWord, 'i');
+  }
   try {
-    const kwds = await Kwd.find();
+    const kwds = await Kwd.find(searchOptions);
     res.render('kwds/index', { kwds: kwds });
   } catch {
     res.redirect('/');
