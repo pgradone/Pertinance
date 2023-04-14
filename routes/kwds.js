@@ -20,38 +20,25 @@ router.get('/', async (req, res) => {
 });
 
 //New KWDs Route
-router.get('/new', async (req, res) => {
-  try {
-    const kwds = await Kwd.find({});
-    const kwd = new Kwd();
-    res.render('kwds/new', {
-      kwds: kwds,
-      kwd: kwd,
-    });
-  } catch {
-    res.redirect('/kwds');
-  }
-});
-
-// Create KWD route
 router.get('/new', (req, res) => {
   res.render('kwds/new', { kwd: new Kwd() });
 });
 
-// router.post('/', async (req, res) => {
-// const kwd = new Kwd({
-//   keyWord: req.body.keyWord,
-//   mainKeyword: req.body.mainKeyword
-// });
-// try {
-//   const newKwd = await kwd.save();
-//   res.redirect(`kwds`);
-// } catch {
-//   res.render('kwds/new', {
-//     kwd: kwd,
-//     errorMessage: 'Error creating Keyword',
-//   });
-// }
-// });
+// Create KWD route
+router.post('/', async (req, res) => {
+  const kwd = new Kwd({
+    keyWord: req.body.keyWord,
+    mainKeyword: req.body.mainKeyword,
+  });
+  try {
+    const newKwd = await kwd.save();
+    res.redirect(`kwds`);
+  } catch {
+    res.render('kwds/new', {
+      kwd: kwd,
+      errorMessage: 'Error creating Keyword',
+    });
+  }
+});
 
 module.exports = router;
