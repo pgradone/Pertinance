@@ -12,6 +12,7 @@ const docRouter = require('./routes/docs');
 const kwdRouter = require('./routes/kwds');
 const fldRouter = require('./routes/flds');
 const mapRouter = require('./routes/maps');
+const candidateRouter = require('./routes/candidates');
 
 app.set('view engine', 'ejs');
 app.set('views', __dirname + '/views');
@@ -37,5 +38,6 @@ app.use('/docs', docRouter);
 app.use('/flds', fldRouter);
 app.use('/kwds', kwdRouter);
 app.use('/maps', mapRouter);
+app.use('/candidates', candidateRouter);
 
 app.listen(process.env.PORT || 3000);
