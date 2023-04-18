@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Kwd = require('../models/kwd');
+const Fld = require('../models/fld');
 
 // All KWDs Route
 router.get('/', async (req, res) => {

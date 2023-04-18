@@ -3,6 +3,18 @@
   <input type="text" name="keyWord" value="<%= kwd.keyWord %>" />
 </div>
 <div>
+  <label>field</label>
+  <select name="field">
+    <% flds.forEach(fld => { %> <% if (fld.id === kwd.field) { %>
+    <option selected label="<%=fld.field %>" value="<%= fld.id %>">
+      <% } else { %>
+    </option>
+    <option label="<%=fld.field %>" value="<%= fld.id %>"></option>
+    <% } %> <% }) %>
+  </select>
+</div>
+<% /* %>
+<div>
   <label>mainKeyWord</label>
   <select name="mainKeyWord">
     <% kwds.forEach(kwd => { %> <% if (kwd.id === kwd.kwd) { %>
@@ -13,3 +25,4 @@
     <% } %> <% }) %>
   </select>
 </div>
+<% */ %>

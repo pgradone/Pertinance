@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const Kwd = require('./kwd');
 
 const kwdSchema = new mongoose.Schema({
   keyWord: {
@@ -7,7 +8,13 @@ const kwdSchema = new mongoose.Schema({
   },
   mainKeyWord: {
     type: mongoose.Schema.Types.ObjectId,
+    required: false,
     ref: 'Kwd',
+  },
+  field: {
+    type: mongoose.Schema.Types.ObjectId,
+    required: false,
+    ref: 'Fld',
   },
 });
 
