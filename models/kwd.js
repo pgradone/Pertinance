@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Kwd = require('./kwd');
+const Fld = require('./fld');
 
 const kwdSchema = new mongoose.Schema({
   keyWord: {

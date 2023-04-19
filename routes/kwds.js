@@ -46,6 +46,9 @@ router.post('/', async (req, res) => {
     mainKeyword: req.body.mainKeyword,
     field: req.body.field,
   });
+  console.log(req.body.keyWord);
+  console.log(req.body.mainKeyword);
+  console.log(req.body.field);
   try {
     const newKwd = await kwd.save();
     res.redirect(`kwds`);
