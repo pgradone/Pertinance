@@ -1,0 +1,9 @@
+<div>
+  <% kwds.forEach(kwd => { %>
+  <div>
+    <a href="/kwds/<%= kwd.id %>">
+      <%= kwd.keyWord %> <%= kwd.mainKeyWord %>
+    </a>
+  </div>
+  <% }) %>
+</div>
