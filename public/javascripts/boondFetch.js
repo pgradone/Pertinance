@@ -1,8 +1,15 @@
-const apiUrl =
-  'https://ui.boondmanager.com/api/candidates?maxResults=30&order=asc&page=1&saveSearch=true&viewMode=list';
+// const { response } = require('express');
 
+const apiUrl = process.env.boond_url + '/candidates';
+const authString = process.env.JFUser + ':' + process.env.JFAuth;
+const options = {
+  headers: {
+    Authorization: 'Basic' + btoa(authString),
+  },
+};
 fetch(apiUrl)
   .then((response) => response.json())
+  .then(console.log(response))
   .then((data) => {
     const candidatesDiv = document.getElementById('candidates');
 
