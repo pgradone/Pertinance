@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Kwd = require('../models/kwd');
 const Fld = require('../models/fld');
+const mongoose = require('mongoose');
 
 // All KWDs Route
 router.get('/', async (req, res) => {
@@ -30,9 +31,15 @@ router.get('/new', async (req, res) => {
 
 // Create KWD route
 router.post('/', async (req, res) => {
+  const value = req.body.mainKeyword;
+  const realmainKeyWord = value
+    ? mongoose.Types.ObjectId.isValid(value)
+      ? mongoose.Types.ObjectId(value)
+      : null
+    : null;
   const kwd = new Kwd({
     keyWord: req.body.keyWord,
-    mainKeyword: req.body.mainKeyword,
+    mainKeyword: realmainKeyWord,
     field: req.body.field,
   });
   console.log(req.body.keyWord);
@@ -43,7 +50,7 @@ router.post('/', async (req, res) => {
     // res.redirect(`kwds/${newKwd.id}`);
     res.redirect(`kwds`);
   } catch {
-    renderNewPage(res, kwd);
+    renderNewPage(res, kwd, true);
   }
 });
 
@@ -51,15 +58,15 @@ async function renderNewPage(res, kwd, hasError = false) {
   try {
     const kwds = await Kwd.find({});
     const flds = await Fld.find({});
-    const kwd = new Kwd();
-    res.render('kwds/new', {
+    const params = {
       kwds: kwds,
       flds: flds,
       kwd: kwd,
-    });
+    };
+    if (hasError) params.errorMessage = 'Error creating Keyword';
+    res.render('kwds/new', params);
   } catch {
     res.redirect('/kwds');
-    params.errorMessage = 'Error creating Keyword';
   }
 }
 
