@@ -56,8 +56,10 @@ router.post('/', async (req, res) => {
 
 async function renderNewPage(res, kwd, hasError = false) {
   try {
-    const kwds = await Kwd.find({});
     const flds = await Fld.find({});
+    // make sure that the keyWords to choose from
+    // are only those having mainKeyword empty
+    const kwds = await Kwd.find({ mainKeyword: null });
     const params = {
       kwds: kwds,
       flds: flds,

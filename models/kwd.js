@@ -4,6 +4,7 @@ const kwdSchema = new mongoose.Schema({
   keyWord: {
     type: String,
     required: true,
+    unique: true,
   },
   mainKeyword: {
     type: mongoose.Schema.Types.Mixed,
