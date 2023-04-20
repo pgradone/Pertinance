@@ -6,24 +6,20 @@
   <label>field</label>
   <select name="field">
     <% flds.forEach(fld => { %> <% if (fld.id === kwd.field) { %>
-    <option selected label="<%=fld.field %>" value="<%= fld.id %>">
-      <% } else { %>
-    </option>
-    <option label="<%=fld.field %>" value="<%= fld.id %>">
-      <% } %> <% }) %>
-    </option>
+    <option selected label="<%=fld.field %>" value="<%= fld.id %>"></option>
+    <% } else { %>
+    <option label="<%=fld.field %>" value="<%= fld.id %>"></option>
+    <% } %> <% }) %>
   </select>
 </div>
 <div>
   <label>mainKeyWord</label>
   <select name="mainKeyWord">
-    <option label="none" value=""></option>
-    <% kwds.forEach(kwd => { %> <% if (kwd.id === kwd.kwd) { %>
-    <option selected label="<%=kwd.keyWord %>" value="<%= kwd.id %>">
-      <% } else { %>
-    </option>
-    <option label="<%=kwd.keyWord %>" value="<%= kwd.id %>">
-      <% } %> <% }) %>
-    </option>
+    <option selected label="---" value="null"></option>
+    <% kwds.forEach(kwd => { %> <% if (kwd.id === kwd.mainKeyword) { %>
+    <option selected label="<%=kwd.keyWord %>" value="<%= kwd.id %>"></option>
+    <% } else { %>
+    <option label="<%=kwd.keyWord %>" value="<%= kwd.id %>"></option>
+    <% } %> <% }) %>
   </select>
 </div>

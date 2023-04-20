@@ -9,12 +9,11 @@ const kwdSchema = new mongoose.Schema({
   },
   mainKeyWord: {
     type: mongoose.Schema.Types.ObjectId,
-    required: false,
     ref: 'Kwd',
   },
   field: {
     type: mongoose.Schema.Types.ObjectId,
-    required: false,
+    required: true,
     ref: 'Fld',
   },
 });

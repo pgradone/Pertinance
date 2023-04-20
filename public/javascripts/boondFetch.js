@@ -1,10 +1,10 @@
 // const { response } = require('express');
 
 const apiUrl = process.env.boond_url + '/candidates';
-const authString = process.env.JFUser + ':' + process.env.JFAuth;
+const authString = btoa(process.env.JFUser + ':' + process.env.JFAuth);
 const options = {
   headers: {
-    Authorization: 'Basic' + btoa(authString),
+    Authorization: 'Basic ' + authString,
   },
 };
 console.log(apiUrl);

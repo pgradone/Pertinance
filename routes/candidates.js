@@ -9,10 +9,10 @@ router.get('/', (req, res) => {
 });
 
 async function fetchCandidates() {
-  const authString = process.env.JFUser + ':' + process.env.JFAuth;
+  const authString = btoa(process.env.JFUser + ':' + process.env.JFAuth);
   const options = {
     headers: {
-      Authorization: 'Basic' + btoa(authString),
+      Authorization: 'Basic ' + authString,
     },
   };
   // const response = await fetch(process.env.boond_url & '/candidates', options);
