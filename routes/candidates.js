@@ -2,13 +2,23 @@ const express = require('express');
 const router = express.Router();
 const Candidate = require('../models/candidate');
 
-// All candidates route
 router.get('/', async (req, res) => {
-  const candidates = await Candidate.find({});
   try {
-    const kwds = await Candidate.find({});
-    res.render('candidates/index', { candidates: candidates });
-  } catch {
+    const candidates = await Candidate.find({});
+    res.render('candidates/index', { candidates });
+  } catch (err) {
+    console.error(err);
+    res.redirect('/');
+  }
+});
+
+router.post('/', async (req, res) => {
+  try {
+    const candidateData = await Candidate.getCandidateData();
+    await Candidate.create(candidateData);
+    res.redirect('/candidates');
+  } catch (err) {
+    console.error(err);
     res.redirect('/');
   }
 });
