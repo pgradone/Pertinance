@@ -1,27 +1,17 @@
 const express = require('express');
 const router = express.Router();
-
-fetchCandidates();
+const Candidate = require('../models/candidate');
 
 // All candidates route
-router.get('/', (req, res) => {
-  res.render('candidates/index');
+router.get('/', async (req, res) => {
+  const candidates = await Candidate.find({});
+  try {
+    const kwds = await Candidate.find({});
+    res.render('candidates/index', { candidates: candidates });
+  } catch {
+    res.redirect('/');
+  }
 });
-
-async function fetchCandidates() {
-  const authString = btoa(process.env.JFUser + ':' + process.env.JFAuth);
-  const options = {
-    headers: {
-      Authorization: 'Basic ' + authString,
-    },
-  };
-  // const response = await fetch(process.env.boond_url & '/candidates', options);
-  // const data = await response.json();
-  // console.log(data);
-  console.log(authString);
-}
-// function renderFromBoond() {
-//   const apiUrl = process.env.boond_url & "/candidates"
 
 // fetch(apiUrl)
 // .then(express.response => express.response.json())

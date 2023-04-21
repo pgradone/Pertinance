@@ -1,1 +1,8 @@
 <h2>Tous les Candidates</h2>
+<% candidates.forEach(candidate => { %>
+<div><%= candidate._id %></div>
+<div><%= candidate.keyWord %></div>
+<div><%= candidate.mainKeyword %></div>
+<div><%= candidate.field %></div>
+<br />
+<% }) %>
