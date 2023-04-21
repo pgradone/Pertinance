@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 
+// fetchCandidates();
+
 // get ALL data from BOOND
 async function fetchCandidates() {
   const apiUrl = process.env.boond_url + '/candidates';
@@ -20,7 +22,7 @@ async function fetchCandidates() {
 
 const candidateSchema = new mongoose.Schema({
   Candidate_ID: {
-    type: Number,
+    type: String,
     required: false,
   },
   firstName: {
@@ -45,18 +47,21 @@ const candidateSchema = new mongoose.Schema({
   },
 });
 
-candidateSchema.virtual('candidateData').get(async function () {
-  const candidatesData = await fetchCandidates();
-  // create and return an array of candidate data
-  const data = candidatesData.data.map((candidate) => ({
-    Candidate_ID: candidate.id,
-    firstName: candidate.attributes.firstName,
-    lastName: candidate.attributes.lastName,
-    skills: candidate.attributes.skills,
-    title: candidate.attributes.title,
-    email1: candidate.attributes.email1,
-  }));
-  return data;
-});
+// candidateSchema.virtual('candidateData').get(function () {
+const candidatesData = await fetchCandidates();
+// create and return an array of candidate data
+const candidates = candidatesData.data.map((candidate) => ({
+  Candidate_ID: candidate.id,
+  firstName: candidate.attributes.firstName,
+  lastName: candidate.attributes.lastName,
+  skills: candidate.attributes.skills,
+  title: candidate.attributes.title,
+  email1: candidate.attributes.email1,
+}));
+//   return data;
+// });
+
+// Insert candidates into the database
+candidates.insertMany(candidates);
 
 module.exports = mongoose.model('Candidate', candidateSchema);

@@ -13,9 +13,4 @@ router.get('/', async (req, res) => {
   }
 });
 
-// fetch(apiUrl)
-// .then(express.response => express.response.json())
-// .catch(error => console.log(error))
-// }
-
 module.exports = router;
