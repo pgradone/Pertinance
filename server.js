@@ -39,25 +39,25 @@ app.use('/maps', mapRouter);
 app.use('/candidates', candidateRouter);
 
 // fill the candidates table here
-const Candidate = require('./models/candidate');
+// const Candidate = require('./models/candidate');
 
-async function seedDatabase() {
-  // Check if the collection is already populated
-  const count = await Candidate.countDocuments();
-  if (count > 0) return;
+// async function seedDatabase() {
+//   // Check if the collection is already populated
+//   const count = await Candidate.countDocuments();
+//   if (count > 0) return;
 
-  // If the collection is empty, fetch the data and save it to the database
-  const candidatesData = await Candidate.candidateData;
-  console.log(candidatesData);
-  await Candidate.create(candidatesData);
-}
+//   // If the collection is empty, fetch the data and save it to the database
+//   const candidatesData = await Candidate.candidateData;
+//   console.log(candidatesData);
+//   await Candidate.create(candidatesData);
+// }
 
-seedDatabase()
-  .then(() => {
-    console.log('Database seeded successfully');
-  })
-  .catch((err) => {
-    console.error('Error seeding database:', err);
-  });
+// seedDatabase()
+//   .then(() => {
+//     console.log('Database seeded successfully');
+//   })
+//   .catch((err) => {
+//     console.error('Error seeding database:', err);
+//   });
 
 app.listen(process.env.PORT || 3000);
