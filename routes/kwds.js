@@ -19,7 +19,8 @@ router.get('/', async (req, res) => {
   try {
     const kwds = await Kwd.find(searchOptions);
     res.render('kwds/index', { kwds: kwds, searchOptions: req.query });
-  } catch {
+  } catch (err) {
+    console.error(err);
     res.redirect('/');
   }
 });

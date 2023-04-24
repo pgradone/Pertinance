@@ -1,15 +1,21 @@
 <h2>All KWDs</h2>
 <form action="/kwds" method="GET">
-  <label>keyWord</label>
-  <input type="text" name="keyWord" value="<%= searchOptions.keyWord %>" />
-  <label>mainKeyWord</label>
-  <input
-    type="text"
-    name="mainKeyword"
-    value="<%= searchOptions.mainKeyword %>"
-  />
-  <label>field</label>
-  <input type="text" name="field" value="<%= searchOptions.field %>" />
+  <div>
+    <label>keyWord</label>
+    <input type="text" name="keyWord" value="<%= searchOptions.keyWord %>" />
+  </div>
+  <div>
+    <label>mainKeyWord</label>
+    <input
+      type="text"
+      name="mainKeyword"
+      value="<%= searchOptions.mainKeyword %>"
+    />
+  </div>
+  <div>
+    <label>field</label>
+    <input type="text" name="field" value="<%= searchOptions.field %>" />
+  </div>
   <br />
   <button type="submit">Search</button>
 </form>
