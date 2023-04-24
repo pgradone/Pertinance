@@ -9,22 +9,19 @@ router.get('/', async (req, res) => {
     searchOptions.id = req.query.id;
   }
   if (req.query.firstName != null && req.query.firstName !== '') {
-    searchOptions.firstName = new RegExp(
-      req.query.firstName.toLocaleLowerCase(),
-      'i'
-    );
+    searchOptions.firstName = req.query.firstName;
   }
   if (req.query.lastName != null && req.query.lastName !== '') {
-    searchOptions.lastName = new RegExp(req.query.lastName.toLowerCase, 'i');
+    searchOptions.lastName = req.query.lastName.toLowerCase;
   }
   if (req.query.title != null && req.query.title !== '') {
-    searchOptions.title = new RegExp(req.query.title, 'i');
+    searchOptions.title = req.query.title;
   }
   if (req.query.email1 != null && req.query.email1 !== '') {
-    searchOptions.email1 = new RegExp(req.query.email1, 'i');
+    searchOptions.email1 = req.query.email1;
   }
   if (req.query.skills != null && req.query.skills !== '') {
-    searchOptions.skills = new RegExp(req.query.skills, 'i');
+    searchOptions.skills = req.query.skills;
   }
   try {
     console.log(searchOptions);

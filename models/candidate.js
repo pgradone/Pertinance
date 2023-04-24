@@ -37,7 +37,9 @@ class Candidate {
     const keys = Object.keys(query);
     return candidates.filter((candidate) => {
       for (const key of keys) {
-        if (candidate.attributes[key] !== query[key]) {
+        if (
+          candidate.attributes[key].toLowerCase() !== query[key].toLowerCase()
+        ) {
           return false;
         }
       }
