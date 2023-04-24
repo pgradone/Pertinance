@@ -1,10 +1,10 @@
 const express = require('express');
 const router = express.Router();
-const Candidate = require('../models/candidate');
+const { getCandidates } = require('../models/candidate');
 
 router.get('/', async (req, res) => {
   try {
-    const candidates = await Candidate.find({});
+    const candidates = await getCandidates();
     res.render('candidates/index', { candidates });
   } catch (err) {
     console.error(err);
