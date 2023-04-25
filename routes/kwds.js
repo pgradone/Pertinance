@@ -15,7 +15,7 @@ router.get('/', async (req, res) => {
     query = query.regex('mainKeyword', new RegExp(req.query.mainKeyword, 'i'));
   }
   if (req.query.field != null && req.query.field !== '') {
-    // query = query.regex('field', new RegExp(req.query.field, 'i'));
+    query = query.req.query.field;
     console.log(req.query.field + ' -> search not yet implemented!');
   }
   // console.log(query);
