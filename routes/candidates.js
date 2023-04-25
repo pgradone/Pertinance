@@ -33,7 +33,7 @@ router.get('/', async (req, res) => {
   try {
     // query = searchOptions;
     // console.log(query);
-    // searchOptions = { firstName: 'Pierre' };
+    // searchOptions = { id: 79 };
     console.log(searchOptions);
     // const candidates = await query.exec();
     const candidates = await Candidate.find(searchOptions);

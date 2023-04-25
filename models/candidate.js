@@ -35,16 +35,21 @@ class Candidate {
   static async find(query) {
     const candidates = await Candidate.fetchCandidates();
     const keys = Object.keys(query);
+    console.log(keys);
     return candidates.filter((candidate) => {
       for (const key of keys) {
-        if (isNaN(key)) {
+        if (key !== 'id') {
           if (
-            candidate.attributes[key].toLowerCase() !== query[key].toLowerCase()
+            !candidate.attributes[key]
+              .toLowerCase()
+              .includes(query[key].toLowerCase())
           ) {
             return false;
           }
         } else {
-          if (candidate.attributes[key] !== query[key]) {
+          if (
+            !candidate[key].toLowerCase().includes(query[key].toLowerCase())
+          ) {
             return false;
           }
         }
