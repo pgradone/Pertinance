@@ -7,17 +7,20 @@ const mongoose = require('mongoose');
 // All KWDs Route
 router.get('/', async (req, res) => {
   let searchOptions = {};
+  let query = Kwd.find();
   if (req.query.keyWord != null && req.query.keyWord !== '') {
-    searchOptions.keyWord = new RegExp(req.query.keyWord, 'i');
+    query = query.regex('keyWord', new RegExp(req.query.keyWord, 'i'));
   }
   if (req.query.mainKeyword != null && req.query.mainKeyword !== '') {
-    searchOptions.mainKeyword = new RegExp(req.query.mainKeyword, 'i');
+    query = query.regex('mainKeyword', new RegExp(req.query.mainKeyword, 'i'));
   }
   if (req.query.field != null && req.query.field !== '') {
-    searchOptions.field = new RegExp(req.query.field, 'i');
+    // query = query.regex('field', new RegExp(req.query.field, 'i'));
+    console.log(req.query.field + ' -> search not yet implemented!');
   }
+  // console.log(query);
   try {
-    const kwds = await Kwd.find(searchOptions);
+    const kwds = await query.exec();
     res.render('kwds/index', { kwds: kwds, searchOptions: req.query });
   } catch (err) {
     console.error(err);
@@ -43,9 +46,9 @@ router.post('/', async (req, res) => {
     mainKeyword: realmainKeyWord,
     field: req.body.field,
   });
-  console.log(req.body.keyWord);
-  console.log(req.body.mainKeyword);
-  console.log(req.body.field);
+  // console.log(req.body.keyWord);
+  // console.log(req.body.mainKeyword);
+  // console.log(req.body.field);
   try {
     const newKwd = await kwd.save();
     // res.redirect(`kwds/${newKwd.id}`);

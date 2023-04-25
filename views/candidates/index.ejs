@@ -28,8 +28,10 @@
   <br /><button type="submit">Search</button>
 </form>
 <br />
-<% if (candidates && candidates.length) { %> <% candidates.forEach(candidate =>
-{ %>
+<% if (candidates && candidates.length) { %>
+<div><%= candidates.length %> candidates found</div>
+<br />
+<% candidates.forEach(candidate =>{ %>
 <div><%= candidate.id %></div>
 <div><%= candidate.attributes.firstName %></div>
 <div><%= candidate.attributes.lastName %></div>

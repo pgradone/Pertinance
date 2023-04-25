@@ -37,10 +37,16 @@ class Candidate {
     const keys = Object.keys(query);
     return candidates.filter((candidate) => {
       for (const key of keys) {
-        if (
-          candidate.attributes[key].toLowerCase() !== query[key].toLowerCase()
-        ) {
-          return false;
+        if (isNaN(key)) {
+          if (
+            candidate.attributes[key].toLowerCase() !== query[key].toLowerCase()
+          ) {
+            return false;
+          }
+        } else {
+          if (candidate.attributes[key] !== query[key]) {
+            return false;
+          }
         }
       }
       return true;

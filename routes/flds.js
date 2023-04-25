@@ -4,9 +4,13 @@ const Fld = require('../models/fld');
 
 // All FLDs Route
 router.get('/', async (req, res) => {
+  let query = Fld.find();
+  if (req.query.field != null && req.query.field != '') {
+    query = query.regex('field', new RegExp(req.query.field, 'i'));
+  }
   try {
-    const flds = await Fld.find();
-    res.render('flds/index', { flds: flds });
+    const flds = await query.exec();
+    res.render('flds/index', { flds: flds, searchOptions: req.query });
   } catch {
     res.redirect('/');
   }

@@ -5,20 +5,22 @@ const Doc = require('../models/doc');
 // All DOCs route
 router.get('/', async (req, res) => {
   let searchOptions = {};
+  let query = Doc.find();
   if (req.query.Id_Doc != null && req.query.Id_Doc !== '') {
-    searchOptions.Id_Doc = new req.query.ID_Doc();
+    // searchOptions.Id_Doc = new req.query.ID_Doc();
+    query = query.regex('Id_Doc', new RegExp(req.query.Id_Doc, 'i'));
   }
   if (req.query.docName != null && req.query.docName !== '') {
-    searchOptions.docName = new RegExp(req.query.docName, 'i');
+    query = query.regex('docName', new RegExp(req.query.docName, 'i'));
   }
   if (req.query.docText != null && req.query.docText !== '') {
-    searchOptions.docText = new RegExp(req.query.docText, 'i');
+    query = query.regex('docText', new RegExp(req.query.docText, 'i'));
   }
   if (req.query.docElement != null && req.query.docElement !== '') {
-    searchOptions.docElement = new RegExp(req.query.docElement, 'i');
+    query = query.regex('docElement', new RegExp(req.query.docElement, 'i'));
   }
   try {
-    const docs = await Doc.find(searchOptions);
+    const docs = await query.exec();
     res.render('docs/index', { docs: docs, searchOptions: req.query });
   } catch {
     res.redirect('/');
