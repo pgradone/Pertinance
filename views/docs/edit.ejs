@@ -1,1 +1,6 @@
 <h2>Edit Document <%= doc.id %></h2>
+<form action="/docs/<%= doc.id %>?_method=PUT" method="POST">
+  <%- include('_form_fields')%>
+  <a href="/docs">Cancel</a>
+  <button type="submit">Update</button>
+</form>
