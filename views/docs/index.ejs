@@ -1,4 +1,4 @@
-<h2>Search DOCs</h2>
+<h2>Search DOCuments</h2>
 <form action="/docs" method="GET">
   <label>Id_Doc</label>
   <input type="number" name="Id_Doc" value="<%= searchOptions.Id_Doc %>" />
@@ -20,4 +20,6 @@
 <% docs.forEach(doc => { %>
 <div><%= doc.docName %></div>
 <div><%= doc.docText %></div>
-<% }) %>
+<a href="/docs/<%= doc.id %>">View</a>
+<a href="/docs/<%= doc.id %>/edit">Edit</a>
+<%- include('../partials/deleteForm', { url: `/docs/${doc.id}` }) %> <% }) %>

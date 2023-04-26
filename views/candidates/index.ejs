@@ -1,4 +1,4 @@
-<h2>All Candidates</h2>
+<h2>Search Candidates</h2>
 <form>
   <div>
     <label>id</label>
@@ -36,6 +36,7 @@
 <div><%= candidate.attributes.firstName %></div>
 <div><%= candidate.attributes.lastName %></div>
 <div><%= candidate.attributes.email1 %></div>
+<a href="/candidates/<%= candidate.id %>">View</a>
 <br />
 <% }) %> <% } else { %>
 <div>No candidates found.</div>

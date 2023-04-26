@@ -51,4 +51,25 @@ router.post('/', async (req, res) => {
     });
   }
 });
+
+// Show Document
+router.get('/:id', (req, res) => {
+  res.send('Show Document ' + req.params.id);
+});
+
+// Edit Document
+router.get('/:id/edit', (req, res) => {
+  res.send('Edit Document ' + req.params.id);
+});
+
+// Update Document
+router.put('/:id', (req, res) => {
+  res.send('Update Document ' + req.params.id);
+});
+
+// Delete Document
+router.delete('/:id', (req, res) => {
+  res.send('Delete Document ' + req.params.id);
+});
+
 module.exports = router;

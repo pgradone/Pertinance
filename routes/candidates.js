@@ -48,4 +48,9 @@ router.get('/', async (req, res) => {
   }
 });
 
+// Show Candidate
+router.get('/:id', (req, res) => {
+  res.send('Show Document ' + req.params.id);
+});
+
 module.exports = router;
