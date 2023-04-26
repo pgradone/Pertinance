@@ -58,6 +58,26 @@ router.post('/', async (req, res) => {
   }
 });
 
+// Show KeyWorD
+router.get('/:id', (req, res) => {
+  res.send('Show KeyWorD ' + req.params.id);
+});
+
+// Edit KeyWorD
+router.get('/:id/edit', (req, res) => {
+  res.send('Edit KeyWorD ' + req.params.id);
+});
+
+// Update KeyWorD
+router.put('/:id', (req, res) => {
+  res.send('Update KeyWorD ' + req.params.id);
+});
+
+// Delete KeyWorD
+router.delete('/:id', (req, res) => {
+  res.send('Delete KeyWorD ' + req.params.id);
+});
+
 async function renderNewPage(res, kwd, hasError = false) {
   try {
     const flds = await Fld.find({});

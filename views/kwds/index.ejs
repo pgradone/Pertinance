@@ -1,4 +1,4 @@
-<h2>All KWDs</h2>
+<h2>Search KWDs</h2>
 <form action="/kwds" method="GET">
   <div>
     <label>keyWord</label>
@@ -25,5 +25,6 @@
 <div><%= kwd.keyWord %></div>
 <div><%= kwd.mainKeyword %></div>
 <div><%= kwd.field %></div>
-<br />
-<% }) %>
+<a href="/kwds/<%= kwd.id %>">View</a>
+<a href="/kwds/<%= kwd.id %>/edit">Edit</a>
+<%- include('../partials/deleteForm', { url: `/kwds/${kwd.id}` }) %> <% }) %>
