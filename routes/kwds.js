@@ -6,7 +6,7 @@ const mongoose = require('mongoose');
 
 // All KWDs Route
 router.get('/', async (req, res) => {
-  let searchOptions = {};
+  // let searchOptions = {};
   let query = Kwd.find();
   if (req.query.keyWord != null && req.query.keyWord !== '') {
     query = query.regex('keyWord', new RegExp(req.query.keyWord, 'i'));
@@ -46,9 +46,6 @@ router.post('/', async (req, res) => {
     mainKeyword: realmainKeyWord,
     field: req.body.field,
   });
-  // console.log(req.body.keyWord);
-  // console.log(req.body.mainKeyword);
-  // console.log(req.body.field);
   try {
     const newKwd = await kwd.save();
     // res.redirect(`kwds/${newKwd.id}`);

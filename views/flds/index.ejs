@@ -1,4 +1,13 @@
-<h2>All Fields</h2>
+<h2>Search FieLDs</h2>
+<form>
+  <div>
+    <label>field</label>
+    <input type="text" name="field" value="<%= searchOptions.field %>" />
+  </div>
+  <button type="submit">Search</button>
+</form>
 <% flds.forEach(fld => { %>
 <div><%= fld.field %></div>
-<% }) %>
+<a href="/flds/<%= fld.id %>">View</a>
+<a href="/flds/<%= fld.id %>/edit">Edit</a>
+<%- include('../partials/deleteForm', { url: `/flds/${fld.id}`}) %> <% }) %>

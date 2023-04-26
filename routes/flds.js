@@ -11,7 +11,8 @@ router.get('/', async (req, res) => {
   try {
     const flds = await query.exec();
     res.render('flds/index', { flds: flds, searchOptions: req.query });
-  } catch {
+  } catch (err) {
+    console.error(err);
     res.redirect('/');
   }
 });
@@ -35,6 +36,26 @@ router.post('/', async (req, res) => {
       errorMessage: 'Error creating FieLD',
     });
   }
+});
+
+// Show FieLD
+router.get('/:id', (req, res) => {
+  res.send('Show FieLD ' + req.params.id);
+});
+
+// Edit FieLD
+router.get('/:id/edit', (req, res) => {
+  res.send('Edit FieLD ' + req.params.id);
+});
+
+// Update FieLD
+router.put('/:id', (req, res) => {
+  res.send('Update FieLD ' + req.params.id);
+});
+
+// Delete FieLD
+router.delete('/:id', (req, res) => {
+  res.send('Delete FieLD ' + req.params.id);
 });
 
 module.exports = router;
