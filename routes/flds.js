@@ -29,7 +29,7 @@ router.post('/', async (req, res) => {
   });
   try {
     const newFld = await fld.save();
-    res.redirect(`flds`);
+    res.redirect(`flds/${newFld.id}`);
   } catch {
     res.render('flds/new', {
       fld: fld,
@@ -44,18 +44,50 @@ router.get('/:id', (req, res) => {
 });
 
 // Edit FieLD
-router.get('/:id/edit', (req, res) => {
-  res.send('Edit FieLD ' + req.params.id);
+router.get('/:id/edit', async (req, res) => {
+  try {
+    const fld = await Fld.findById(req.params.id);
+    res.render('flds/edit', { fld: fld });
+  } catch (err) {
+    console.error(err);
+    res.redirect('/fld');
+  }
 });
 
 // Update FieLD
-router.put('/:id', (req, res) => {
-  res.send('Update FieLD ' + req.params.id);
+router.put('/:id', async (req, res) => {
+  let fld;
+  try {
+    fld = await Fld.findById(req.params.id);
+    fld.field = req.body.field;
+    await fld.save();
+    res.redirect(`/flds/${fld.id}`);
+  } catch {
+    if (fld == null) {
+      res.redirect('/');
+    } else {
+      res.render('flds/edit', {
+        fld: fld,
+        errorMessage: 'Error updating FieLD',
+      });
+    }
+  }
 });
 
 // Delete FieLD
-router.delete('/:id', (req, res) => {
-  res.send('Delete FieLD ' + req.params.id);
+router.delete('/:id', async (req, res) => {
+  let fld;
+  try {
+    fld = await Fld.findById(req.params.id);
+    await fld.remove();
+    res.redirect('/flds');
+  } catch {
+    if (fld == null) {
+      res.redirect('/');
+    } else {
+      res.redirect(`/flds/${fld.id}`);
+    }
+  }
 });
 
 module.exports = router;

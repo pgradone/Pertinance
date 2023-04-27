@@ -1,6 +1,6 @@
 <h2>Edit FieLD <%= fld.id %></h2>
 <form action="/flds/<%= fld.id %>?_method=PUT" method="POST">
   <%- include('_form_fields')%>
-  <a href="/flds">Cancel</a>
+  <a href="/flds/<= fld.id >">Cancel</a>
   <button type="submit">Update</button>
 </form>
