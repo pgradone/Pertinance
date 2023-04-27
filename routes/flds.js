@@ -50,7 +50,7 @@ router.get('/:id/edit', async (req, res) => {
     res.render('flds/edit', { fld: fld });
   } catch (err) {
     console.error(err);
-    res.redirect('/fld');
+    res.redirect('/flds');
   }
 });
 
@@ -66,7 +66,7 @@ router.put('/:id', async (req, res) => {
     if (fld == null) {
       res.redirect('/');
     } else {
-      res.render('flds/edit', {
+      res.render('/flds/edit', {
         fld: fld,
         errorMessage: 'Error updating FieLD',
       });
@@ -81,7 +81,8 @@ router.delete('/:id', async (req, res) => {
     fld = await Fld.findById(req.params.id);
     await fld.remove();
     res.redirect('/flds');
-  } catch {
+  } catch (err) {
+    console.error(err);
     if (fld == null) {
       res.redirect('/');
     } else {

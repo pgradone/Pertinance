@@ -48,8 +48,7 @@ router.post('/', async (req, res) => {
   });
   try {
     const newKwd = await kwd.save();
-    // res.redirect(`kwds/${newKwd.id}`);
-    res.redirect(`kwds`);
+    res.redirect(`kwds/${newKwd.id}`);
   } catch {
     renderNewPage(res, kwd, true);
   }
@@ -61,18 +60,50 @@ router.get('/:id', (req, res) => {
 });
 
 // Edit KeyWorD
-router.get('/:id/edit', (req, res) => {
+router.get('/:id/edit', async (req, res) => {
+  try {
+    const kwd = await Kwd.findById(req.params.id);
+    res.render('kwds/edit', { kwd: kwd });
+  } catch (error) {
+    console.error(err);
+    res.redirect('/kwds');
+  }
   res.send('Edit KeyWorD ' + req.params.id);
 });
 
 // Update KeyWorD
-router.put('/:id', (req, res) => {
-  res.send('Update KeyWorD ' + req.params.id);
+router.put('/:id', async (req, res) => {
+  let kwd;
+  try {
+    kwd = await Kwd.findById(req.params.id);
+    kwd.keyWord = req.body.keyWord;
+    kwd.mainKeyword = req.body.mainKeyword;
+    kwd.field = req.body.field;
+  } catch {
+    if (kwd == null) {
+      res.redirect('/');
+    } else {
+      res.render('/kwds/edit', {
+        kwd: kwd,
+        errorMessage: 'Error updating KeyWorD',
+      });
+    }
+  }
 });
 
 // Delete KeyWorD
-router.delete('/:id', (req, res) => {
-  res.send('Delete KeyWorD ' + req.params.id);
+router.delete('/:id', async (req, res) => {
+  let kwd;
+  try {
+    kwd = await Kwd.findById(req.params.id);
+    await kwd.remove();
+  } catch {
+    if (kwd == null) {
+      res.redirect('/kwds');
+    } else {
+      res.redirect(`/kwds/${kwd.id}`);
+    }
+  }
 });
 
 async function renderNewPage(res, kwd, hasError = false) {

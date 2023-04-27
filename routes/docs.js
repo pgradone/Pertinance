@@ -22,7 +22,8 @@ router.get('/', async (req, res) => {
   try {
     const docs = await query.exec();
     res.render('docs/index', { docs: docs, searchOptions: req.query });
-  } catch {
+  } catch (err) {
+    console.error(err);
     res.redirect('/');
   }
 });
@@ -42,8 +43,7 @@ router.post('/', async (req, res) => {
   });
   try {
     const newDoc = await doc.save();
-    // res.redirect(`docs/${newDoc.id}`);
-    res.redirect(`docs`);
+    res.redirect(`docs/${newDoc.id}`);
   } catch {
     res.render('docs/new', {
       doc: doc,
@@ -58,18 +58,52 @@ router.get('/:id', (req, res) => {
 });
 
 // Edit Document
-router.get('/:id/edit', (req, res) => {
-  res.send('Edit Document ' + req.params.id);
+router.get('/:id/edit', async (req, res) => {
+  try {
+    const doc = await Doc.findById(req.params.id);
+    res.render('docs/edit', { doc: doc });
+  } catch (error) {
+    console.error(err);
+    res.redirect('/flds');
+  }
 });
 
 // Update Document
-router.put('/:id', (req, res) => {
-  res.send('Update Document ' + req.params.id);
+router.put('/:id', async (req, res) => {
+  let doc;
+  try {
+    doc = await Doc.findById(req.params.id);
+    doc.docName = req.body.docName;
+    doc.docText = req.body.docText;
+    doc.docElement = req.body.docElement;
+    await doc.save();
+    res.redirect(`/docs/${doc.id}`);
+  } catch {
+    if (doc == null) {
+      res.redirect('/');
+    } else {
+      res.render('/flds/edit', {
+        doc: doc,
+        errorMessage: 'Error updating DOC',
+      });
+    }
+  }
 });
 
 // Delete Document
-router.delete('/:id', (req, res) => {
-  res.send('Delete Document ' + req.params.id);
+router.delete('/:id', async (req, res) => {
+  let doc;
+  try {
+    doc = await Doc.findById(req.params.id);
+    await doc.remove();
+    res.redirect('/docs');
+  } catch (err) {
+    if (doc == null) {
+      res.redirect('/');
+    } else {
+      res.redirect(`/docs/${doc.id}`);
+    }
+  }
 });
 
 module.exports = router;
