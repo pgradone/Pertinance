@@ -6,8 +6,7 @@ const mongoose = require('mongoose');
 
 // All KWDs Route
 router.get('/', async (req, res) => {
-  // let searchOptions = {};
-  let query = Kwd.find();
+  let query = Kwd.find().populate('fieldText');
   if (req.query.keyWord != null && req.query.keyWord !== '') {
     query = query.regex('keyWord', new RegExp(req.query.keyWord, 'i'));
   }
@@ -54,24 +53,23 @@ router.post('/', async (req, res) => {
   }
 });
 
-// Show KeyWorD
+// Show KeyWorD Route
 router.get('/:id', (req, res) => {
   res.send('Show KeyWorD ' + req.params.id);
 });
 
-// Edit KeyWorD
+// Edit KeyWorD Route
 router.get('/:id/edit', async (req, res) => {
   try {
     const kwd = await Kwd.findById(req.params.id);
-    res.render('kwds/edit', { kwd: kwd });
+    renderEditPage(res, kwd);
   } catch (error) {
     console.error(err);
-    res.redirect('/kwds');
+    res.redirect('/');
   }
-  res.send('Edit KeyWorD ' + req.params.id);
 });
 
-// Update KeyWorD
+// Update KeyWorD Route
 router.put('/:id', async (req, res) => {
   let kwd;
   try {
@@ -79,46 +77,61 @@ router.put('/:id', async (req, res) => {
     kwd.keyWord = req.body.keyWord;
     kwd.mainKeyword = req.body.mainKeyword;
     kwd.field = req.body.field;
+    await kwd.save();
+    res.redirect(`/kwds/${kwd.id}`);
   } catch {
-    if (kwd == null) {
-      res.redirect('/');
+    if (kwd != null) {
+      renderEditPage(res, kwd, true);
     } else {
-      res.render('/kwds/edit', {
-        kwd: kwd,
-        errorMessage: 'Error updating KeyWorD',
-      });
+      redirect('/');
     }
   }
 });
 
-// Delete KeyWorD
+// Delete KeyWorD Route
 router.delete('/:id', async (req, res) => {
   let kwd;
   try {
     kwd = await Kwd.findById(req.params.id);
     await kwd.remove();
+    res.redirect('/kwds');
   } catch {
-    if (kwd == null) {
-      res.redirect('/kwds');
+    if (kwd != null) {
+      res.render('kwds/show', {
+        kwd: kwd,
+        errorMessage: 'Could not remove keyWord',
+      });
     } else {
-      res.redirect(`/kwds/${kwd.id}`);
+      res.redirect('/');
     }
   }
 });
 
 async function renderNewPage(res, kwd, hasError = false) {
+  renderFormPage(res, kwd, 'new', hasError);
+}
+
+async function renderEditPage(res, kwd, hasError = false) {
+  renderFormPage(res, kwd, 'edit', hasError);
+}
+
+async function renderFormPage(res, kwd, form, hasError = false) {
   try {
     const flds = await Fld.find({});
-    // make sure that the keyWords to choose from
-    // are only those having mainKeyword empty
-    const kwds = await Kwd.find({ mainKeyword: null });
+    const mainKwds = await Kwd.find({ mainKeyword: null });
     const params = {
-      kwds: kwds,
       flds: flds,
+      kwds: mainKwds,
       kwd: kwd,
     };
-    if (hasError) params.errorMessage = 'Error creating Keyword';
-    res.render('kwds/new', params);
+    if (hasError) {
+      if (form === 'edit') {
+        params.errorMessage = 'Error Updating keyword';
+      } else {
+        params.errorMessage = 'Error Creating keyword';
+      }
+    }
+    res.render(`kwds/${form}`, params);
   } catch {
     res.redirect('/kwds');
   }

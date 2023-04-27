@@ -16,7 +16,7 @@
   <label>mainKeyWord</label>
   <select name="mainKeyword">
     <option selected label="---" value=""></option>
-    <% kwds.forEach(kwd => { %> <% if (kwd.id === kwd.keyWord) { %>
+    <% kwds.forEach(kwd => { %> <% if (kwd.id === kwd.mainKeyWord) { %>
     <option selected label="<%=kwd.keyWord %>" value="<%= kwd.id %>"></option>
     <% } else { %>
     <option label="<%=kwd.keyWord %>" value="<%= kwd.id %>"></option>

@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-
+const Fld = require('../models/fld');
 const kwdSchema = new mongoose.Schema({
   keyWord: {
     type: String,
@@ -27,6 +27,13 @@ kwdSchema.pre('remove', function (next) {
       next();
     }
   });
+});
+
+kwdSchema.virtual('fieldText', {
+  ref: 'Fld',
+  localField: '_id',
+  foreignField: 'kwd',
+  justOne: false,
 });
 
 module.exports = mongoose.model('Kwd', kwdSchema);

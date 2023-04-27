@@ -25,6 +25,7 @@
 <div><%= kwd.keyWord %></div>
 <div><%= kwd.mainKeyword %></div>
 <div><%= kwd.field %></div>
+<div><%= kwd.fieldText %></div>
 <a href="/kwds/<%= kwd.id %>">View</a>
 <a href="/kwds/<%= kwd.id %>/edit">Edit</a>
 <%- include('../partials/deleteForm', { url: `/kwds/${kwd.id}` }) %> <% }) %>
