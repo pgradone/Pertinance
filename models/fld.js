@@ -8,4 +8,16 @@ const fldSchema = new mongoose.Schema({
   },
 });
 
+fldSchema.pre('remove', function (next) {
+  Kwd.find({ fld: this.id }, (err, kwds) => {
+    if (err) {
+      next(err);
+    } else if (kwds.length > 0) {
+      next(new Error('This field still has keyWorDs referenced'));
+    } else {
+      next();
+    }
+  });
+});
+
 module.exports = mongoose.model('Fld', fldSchema);

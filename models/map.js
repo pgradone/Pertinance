@@ -11,6 +11,11 @@ const mapSchema = new mongoose.Schema({
     required: true,
     ref: 'Doc',
   },
+  wordCount: {
+    type: Number,
+    required: true,
+    default: 0,
+  },
 });
 
 module.exports = mongoose.model('Map', fldSchema);

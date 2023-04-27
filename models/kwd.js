@@ -17,4 +17,16 @@ const kwdSchema = new mongoose.Schema({
   },
 });
 
+kwdSchema.pre('remove', function (next) {
+  Kwd.find({ fld: this.mainKeyword }, (err, kwds) => {
+    if (err) {
+      next(err);
+    } else if (kwds.length > 0) {
+      next(new Error('This keyWord is still being referenced as mainKeyWord'));
+    } else {
+      next();
+    }
+  });
+});
+
 module.exports = mongoose.model('Kwd', kwdSchema);
