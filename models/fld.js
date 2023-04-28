@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const Kwd = require('../models/kwd');
+const Kwd = require('./kwd');
 
 const fldSchema = new mongoose.Schema({
   field: {

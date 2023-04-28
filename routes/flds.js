@@ -38,12 +38,17 @@ router.post('/', async (req, res) => {
   }
 });
 
-// Show FieLD
-router.get('/:id', (req, res) => {
-  res.send('Show FieLD ' + req.params.id);
+// Show FieLD route
+router.get('/:id', async (req, res) => {
+  try {
+    const fld = await Fld.findById(req.params.id);
+    res.render('flds/show', { fld: fld });
+  } catch (error) {
+    res.redirect('/');
+  }
 });
 
-// Edit FieLD
+// Edit FieLD route
 router.get('/:id/edit', async (req, res) => {
   try {
     const fld = await Fld.findById(req.params.id);
@@ -54,7 +59,7 @@ router.get('/:id/edit', async (req, res) => {
   }
 });
 
-// Update FieLD
+// Update FieLD route
 router.put('/:id', async (req, res) => {
   let fld;
   try {
@@ -74,7 +79,7 @@ router.put('/:id', async (req, res) => {
   }
 });
 
-// Delete FieLD
+// Delete FieLD route
 router.delete('/:id', async (req, res) => {
   let fld;
   try {
@@ -82,11 +87,13 @@ router.delete('/:id', async (req, res) => {
     await fld.remove();
     res.redirect('/flds');
   } catch (err) {
-    console.error(err);
-    if (fld == null) {
-      res.redirect('/');
+    if (fld != null) {
+      res.render('flds/show', {
+        fld: fld,
+        errorMessage: 'Could not remove field ' + err,
+      });
     } else {
-      res.redirect(`/flds/${fld.id}`);
+      res.redirect('/');
     }
   }
 });

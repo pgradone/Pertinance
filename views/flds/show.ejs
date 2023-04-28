@@ -1,0 +1,5 @@
+<h2><%= fld.field %></h2>
+<div>
+  <a href="/flds/<%= fld.id %>/edit">Edit</a>
+  <%- include('../partials/deleteForm',{url:`/flds/${fld.id}`}) %>
+</div>

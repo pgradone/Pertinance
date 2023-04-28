@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
-const Fld = require('../models/fld');
+// const Fld = require('./fld');
+
 const kwdSchema = new mongoose.Schema({
   keyWord: {
     type: String,
@@ -8,7 +9,7 @@ const kwdSchema = new mongoose.Schema({
   },
   mainKeyword: {
     type: mongoose.Schema.Types.Mixed,
-    ref: 'MainKwd',
+    ref: 'Kwd',
   },
   field: {
     type: mongoose.Schema.Types.ObjectId,
@@ -18,7 +19,7 @@ const kwdSchema = new mongoose.Schema({
 });
 
 kwdSchema.pre('remove', function (next) {
-  Kwd.find({ fld: this.mainKeyword }, (err, kwds) => {
+  this.find({ fld: this.mainKeyword }, (err, kwds) => {
     if (err) {
       next(err);
     } else if (kwds.length > 0) {
