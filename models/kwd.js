@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-// const Fld = require('./fld');
 
 const kwdSchema = new mongoose.Schema({
   keyWord: {
@@ -19,11 +18,16 @@ const kwdSchema = new mongoose.Schema({
 });
 
 kwdSchema.pre('remove', function (next) {
-  this.find({ fld: this.mainKeyword }, (err, kwds) => {
+  const Kwd = mongoose.model('Kwd'); // This line is added
+  Kwd.find({ mainKeyword: this._id }, (err, kwds) => {
     if (err) {
       next(err);
     } else if (kwds.length > 0) {
-      next(new Error('This keyWord is still being referenced as mainKeyWord'));
+      next(
+        new Error(
+          'This keyWord is still being referenced somewhere else as mainKeyWord'
+        )
+      );
     } else {
       next();
     }

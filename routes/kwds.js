@@ -54,8 +54,14 @@ router.post('/', async (req, res) => {
 });
 
 // Show KeyWorD Route
-router.get('/:id', (req, res) => {
-  res.send('Show KeyWorD ' + req.params.id);
+router.get('/:id', async (req, res) => {
+  try {
+    const kwd = await Kwd.findById(req.params.id).populate('fld').exec();
+    res.render('kwds/show', { kwd: kwd });
+  } catch (err) {
+    console.error(err);
+    res.redirect('/');
+  }
 });
 
 // Edit KeyWorD Route
@@ -95,11 +101,11 @@ router.delete('/:id', async (req, res) => {
     kwd = await Kwd.findById(req.params.id);
     await kwd.remove();
     res.redirect('/kwds');
-  } catch {
+  } catch (err) {
     if (kwd != null) {
       res.render('kwds/show', {
         kwd: kwd,
-        errorMessage: 'Could not remove keyWord',
+        errorMessage: 'Could not remove keyWord ' + err,
       });
     } else {
       res.redirect('/');
