@@ -5,27 +5,22 @@
     <input type="text" name="keyWord" value="<%= searchOptions.keyWord %>" />
   </div>
   <div>
-    <label>mainKeyWord</label>
-    <input
-      type="text"
-      name="mainKeyword"
-      value="<%= searchOptions.mainKeyword %>"
-    />
-  </div>
-  <div>
     <label>field</label>
-    <input type="text" name="fld" value="<%= searchOptions.fld %>" />
+    <select name="fld">
+      <option selected label="---" value=""></option>
+      <% flds.forEach(fld => { %>
+      <option label="<%=fld.field %>" value="<%= fld.id %>"></option>
+      <% }) %>
+    </select>
   </div>
   <br />
   <button type="submit">Search</button>
 </form>
 <br />
 <% kwds.forEach(kwd => { %>
-<div><%= kwd._id %></div>
 <div><%= kwd.keyWord %></div>
 <div><%= kwd.mainKeyword %></div>
-<div><%= kwd.fld %></div>
-<div><%= kwd.fieldText %></div>
+<div><%= kwd.fld.field %></div>
 <a href="/kwds/<%= kwd.id %>">View</a>
 <a href="/kwds/<%= kwd.id %>/edit">Edit</a>
 <%- include('../partials/deleteForm', { url: `/kwds/${kwd.id}` }) %> <% }) %>

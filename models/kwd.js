@@ -34,11 +34,4 @@ kwdSchema.pre('remove', function (next) {
   });
 });
 
-kwdSchema.virtual('fieldText', {
-  ref: 'Fld',
-  localField: 'field',
-  foreignField: 'kwd_id',
-  justOne: false,
-});
-
 module.exports = mongoose.model('Kwd', kwdSchema);

@@ -4,23 +4,23 @@ const Kwd = require('../models/kwd');
 const Fld = require('../models/fld');
 const mongoose = require('mongoose');
 
-// All KWDs Route
+// Search KeyWorDs
 router.get('/', async (req, res) => {
   let query = Kwd.find().populate('fieldText');
   if (req.query.keyWord != null && req.query.keyWord !== '') {
     query = query.regex('keyWord', new RegExp(req.query.keyWord, 'i'));
   }
-  if (req.query.mainKeyword != null && req.query.mainKeyword !== '') {
-    query = query.regex('mainKeyword', new RegExp(req.query.mainKeyword, 'i'));
-  }
   if (req.query.fld != null && req.query.fld !== '') {
-    query = query.req.query.fld;
-    console.log(req.query.fld + ' -> search not yet implemented!');
+    query = query.where('fld').equals(req.query.fld);
   }
-  // console.log(query);
   try {
-    const kwds = await query.exec();
-    res.render('kwds/index', { kwds: kwds, searchOptions: req.query });
+    const kwds = await query.populate('fld').exec();
+    const flds = await Fld.find();
+    res.render('kwds/index', {
+      kwds: kwds,
+      flds: flds,
+      searchOptions: req.query,
+    });
   } catch (err) {
     console.error(err);
     res.redirect('/');
@@ -58,8 +58,8 @@ router.post('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
   try {
     const kwd = await Kwd.findById(req.params.id).populate('fld').exec();
-    console.log(kwd.keyWord + ' -- ' + kwd.fld);
-    console.log(kwd.fld.field);
+    console.log('kwd.fld.field --> ' + kwd.fld.field);
+    console.log('fieldText --> ' + kwd.fieldText);
     res.render('kwds/show', { kwd: kwd });
   } catch (err) {
     console.error(err);
