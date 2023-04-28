@@ -3,20 +3,22 @@
   <input type="text" name="keyWord" value="<%= kwd.keyWord %>" />
 </div>
 <div>
-  <label>mainKeyWord</label>
-  <select name="mainKeyword">
+  <label>main Keyword</label>
+  <select name="mainKwd">
+    <% if (kwd.mainKwd != '') { %>
     <option selected label="---" value=""></option>
-    <% kwds.forEach(kwd => { %> <% if (kwd.id === kwd.mainKeyWord) { %>
+    <% } else { %> <% kwds.forEach(kwd => { %> <% if (kwd.id == kwd.mainKwd) {
+    %>
     <option selected label="<%=kwd.keyWord %>" value="<%= kwd.id %>"></option>
     <% } else { %>
     <option label="<%=kwd.keyWord %>" value="<%= kwd.id %>"></option>
-    <% } %> <% }) %>
+    <% } %> <% }) %> <%} %>
   </select>
 </div>
 <div>
   <label>field</label>
   <select name="fld">
-    <% flds.forEach(fld => { %> <% if (fld.id === kwd.fld) { %>
+    <% flds.forEach(fld => { %> <% if (fld.id == kwd.fld) { %>
     <option selected label="<%=fld.field %>" value="<%= fld.id %>"></option>
     <% } else { %>
     <option label="<%=fld.field %>" value="<%= fld.id %>"></option>

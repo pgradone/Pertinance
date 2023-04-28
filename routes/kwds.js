@@ -34,15 +34,15 @@ router.get('/new', async (req, res) => {
 
 // Create KWD route
 router.post('/', async (req, res) => {
-  const value = req.body.mainKeyword;
-  const realmainKeyWord = value
+  const value = req.body.mainKwd;
+  const realmainKwd = value
     ? mongoose.Types.ObjectId.isValid(value)
       ? mongoose.Types.ObjectId(value)
       : null
     : null;
   const kwd = new Kwd({
     keyWord: req.body.keyWord,
-    mainKeyword: realmainKeyWord,
+    mainKwd: realmainKwd,
     fld: req.body.fld,
   });
   try {
@@ -58,8 +58,6 @@ router.post('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
   try {
     const kwd = await Kwd.findById(req.params.id).populate('fld').exec();
-    console.log('kwd.fld.field --> ' + kwd.fld.field);
-    console.log('fieldText --> ' + kwd.fieldText);
     res.render('kwds/show', { kwd: kwd });
   } catch (err) {
     console.error(err);
@@ -72,7 +70,7 @@ router.get('/:id/edit', async (req, res) => {
   try {
     const kwd = await Kwd.findById(req.params.id);
     renderEditPage(res, kwd);
-  } catch (error) {
+  } catch (err) {
     console.error(err);
     res.redirect('/');
   }
@@ -84,7 +82,7 @@ router.put('/:id', async (req, res) => {
   try {
     kwd = await Kwd.findById(req.params.id);
     kwd.keyWord = req.body.keyWord;
-    kwd.mainKeyword = req.body.mainKeyword;
+    kwd.mainKwd = req.body.mainKwd;
     kwd.fld = req.body.fld;
     await kwd.save();
     res.redirect(`/kwds/${kwd.id}`);
@@ -127,7 +125,7 @@ async function renderEditPage(res, kwd, hasError = false) {
 async function renderFormPage(res, kwd, form, hasError = false) {
   try {
     const flds = await Fld.find({});
-    const mainKwds = await Kwd.find({ mainKeyword: null });
+    const mainKwds = await Kwd.find({ mainKwd: null });
     const params = {
       flds: flds,
       kwds: mainKwds,
@@ -142,7 +140,7 @@ async function renderFormPage(res, kwd, form, hasError = false) {
     }
     res.render(`kwds/${form}`, params);
   } catch (e) {
-    console.err(e);
+    console.error(e);
     res.redirect('/kwds');
   }
 }

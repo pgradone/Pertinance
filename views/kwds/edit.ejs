@@ -1,6 +1,6 @@
 <h2>Edit KeyWorD <%= kwd.id %></h2>
 <form action="/kwds/<%= kwd.id %>?_method=PUT" method="POST">
-  <%- include('_form_fields',{ kwd: kwd })%>
+  <%- include('_form_fields',)%>
   <a href="/kwds">Cancel</a>
   <button type="submit">Update</button>
 </form>

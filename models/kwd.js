@@ -6,7 +6,7 @@ const kwdSchema = new mongoose.Schema({
     required: true,
     unique: true,
   },
-  mainKeyword: {
+  mainKwd: {
     type: mongoose.Schema.Types.Mixed,
     ref: 'Kwd',
   },
@@ -19,13 +19,13 @@ const kwdSchema = new mongoose.Schema({
 
 kwdSchema.pre('remove', function (next) {
   const Kwd = mongoose.model('Kwd'); // This line is added
-  Kwd.find({ mainKeyword: this._id }, (err, kwds) => {
+  Kwd.find({ mainKwd: this._id }, (err, kwds) => {
     if (err) {
       next(err);
     } else if (kwds.length > 0) {
       next(
         new Error(
-          'This keyWord is still being referenced somewhere else as mainKeyWord'
+          'This keyWord is still being referenced somewhere else as main KeyWord'
         )
       );
     } else {
