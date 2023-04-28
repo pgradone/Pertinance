@@ -1,4 +1,7 @@
 <h2><%= kwd.id %> - <%= kwd.keyWord %></h2>
+Field: <%= kwd.fld.field %>
 <div>
   <a href="/kwds/<%= kwd.id %>/edit">Edit</a>
+  <%- include('../partials/deleteForm',{url:`/kwds/${kwd.id}`}) %> <%=
+  kwd.fieldText %>
 </div>

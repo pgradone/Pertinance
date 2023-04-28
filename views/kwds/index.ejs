@@ -1,4 +1,4 @@
-<h2>Search KWDs</h2>
+<h2>Search KeyWorDs</h2>
 <form action="/kwds" method="GET">
   <div>
     <label>keyWord</label>
@@ -14,7 +14,7 @@
   </div>
   <div>
     <label>field</label>
-    <input type="text" name="field" value="<%= searchOptions.field %>" />
+    <input type="text" name="fld" value="<%= searchOptions.fld %>" />
   </div>
   <br />
   <button type="submit">Search</button>
@@ -24,7 +24,7 @@
 <div><%= kwd._id %></div>
 <div><%= kwd.keyWord %></div>
 <div><%= kwd.mainKeyword %></div>
-<div><%= kwd.field %></div>
+<div><%= kwd.fld %></div>
 <div><%= kwd.fieldText %></div>
 <a href="/kwds/<%= kwd.id %>">View</a>
 <a href="/kwds/<%= kwd.id %>/edit">Edit</a>

@@ -10,7 +10,7 @@ const kwdSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.Mixed,
     ref: 'Kwd',
   },
-  field: {
+  fld: {
     type: mongoose.Schema.Types.ObjectId,
     required: true,
     ref: 'Fld',
@@ -36,8 +36,8 @@ kwdSchema.pre('remove', function (next) {
 
 kwdSchema.virtual('fieldText', {
   ref: 'Fld',
-  localField: '_id',
-  foreignField: 'kwd',
+  localField: 'field',
+  foreignField: 'kwd_id',
   justOne: false,
 });
 

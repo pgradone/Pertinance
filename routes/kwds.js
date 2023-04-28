@@ -13,9 +13,9 @@ router.get('/', async (req, res) => {
   if (req.query.mainKeyword != null && req.query.mainKeyword !== '') {
     query = query.regex('mainKeyword', new RegExp(req.query.mainKeyword, 'i'));
   }
-  if (req.query.field != null && req.query.field !== '') {
-    query = query.req.query.field;
-    console.log(req.query.field + ' -> search not yet implemented!');
+  if (req.query.fld != null && req.query.fld !== '') {
+    query = query.req.query.fld;
+    console.log(req.query.fld + ' -> search not yet implemented!');
   }
   // console.log(query);
   try {
@@ -43,12 +43,13 @@ router.post('/', async (req, res) => {
   const kwd = new Kwd({
     keyWord: req.body.keyWord,
     mainKeyword: realmainKeyWord,
-    field: req.body.field,
+    fld: req.body.fld,
   });
   try {
     const newKwd = await kwd.save();
     res.redirect(`kwds/${newKwd.id}`);
-  } catch {
+  } catch (e) {
+    console.error(e);
     renderNewPage(res, kwd, true);
   }
 });
@@ -57,6 +58,8 @@ router.post('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
   try {
     const kwd = await Kwd.findById(req.params.id).populate('fld').exec();
+    console.log(kwd.keyWord + ' -- ' + kwd.fld);
+    console.log(kwd.fld.field);
     res.render('kwds/show', { kwd: kwd });
   } catch (err) {
     console.error(err);
@@ -82,7 +85,7 @@ router.put('/:id', async (req, res) => {
     kwd = await Kwd.findById(req.params.id);
     kwd.keyWord = req.body.keyWord;
     kwd.mainKeyword = req.body.mainKeyword;
-    kwd.field = req.body.field;
+    kwd.fld = req.body.fld;
     await kwd.save();
     res.redirect(`/kwds/${kwd.id}`);
   } catch {
@@ -138,7 +141,8 @@ async function renderFormPage(res, kwd, form, hasError = false) {
       }
     }
     res.render(`kwds/${form}`, params);
-  } catch {
+  } catch (e) {
+    console.err(e);
     res.redirect('/kwds');
   }
 }
