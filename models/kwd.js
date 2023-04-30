@@ -27,6 +27,9 @@ kwdSchema.pre('remove', function (next) {
       next(
         new Error(
           'This keyWord is still being referenced somewhere else as main KeyWord'
+        ),
+        console.log(
+          'This keyWord is still being referenced somewhere else as main KeyWord'
         )
       );
     } else {

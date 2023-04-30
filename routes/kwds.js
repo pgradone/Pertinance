@@ -108,13 +108,10 @@ router.delete('/:id', async (req, res) => {
     await kwd.remove();
     res.redirect('/kwds');
   } catch (err) {
-    if (kwd != null) {
-      res.render('kwds/show', {
-        kwd: kwd,
-        errorMessage: 'Could not remove keyWord ' + err,
-      });
-    } else {
+    if (kwd == null) {
       res.redirect('/');
+    } else {
+      res.redirect(`/kwds/${kwd.id}`);
     }
   }
 });
