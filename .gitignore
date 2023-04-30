@@ -1,3 +1,6 @@
 .env
 node_modules
 *.log
+specs/AO
+specs/CV
+specs/Boond
