@@ -3,3 +3,6 @@
   <a href="/flds/<%= fld.id %>/edit">Edit</a>
   <%- include('../partials/deleteForm',{url:`/flds/${fld.id}`}) %>
 </div>
+<% if (kwdsByFld.length > 0) { %>
+<h2 class="page-header">Keywords By Field</h2>
+<%- include('../partials/kwdList', { kwds: kwdsByFld }) %> <% } %>

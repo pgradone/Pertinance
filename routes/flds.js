@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Fld = require('../models/fld');
+const Kwd = require('../models/kwd');
 
 // All FLDs Route
 router.get('/', async (req, res) => {
@@ -42,8 +43,14 @@ router.post('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
   try {
     const fld = await Fld.findById(req.params.id);
-    res.render('flds/show', { fld: fld });
-  } catch (error) {
+    const kwds = await Kwd.find({ fld: fld.id }).limit(10).exec();
+    console.log(kwds);
+    res.render('flds/show', {
+      fld: fld,
+      kwdsByFld: kwds,
+    });
+  } catch (err) {
+    // console.error(err);
     res.redirect('/');
   }
 });
