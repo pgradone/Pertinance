@@ -1,9 +1,19 @@
 const express = require('express');
 const router = express.Router();
 
-router.get('/', (req, res) => {
+const Kwd = require('../models/kwd');
+
+router.get('/', async (req, res) => {
   //res.send('Hello World');
-  res.render('index');
+
+  let kwds;
+  try {
+    kwds = await Kwd.find().populate('mainKwd').exec();
+  } catch (error) {
+    kwds = [];
+  }
+
+  res.render('index', { kwds: kwds });
 });
 
 module.exports = router;

@@ -2,6 +2,11 @@
   <% kwds.forEach(kwd => { %>
   <div>
     <a href="/kwds/<%= kwd.id %>"> <%= kwd.keyWord %> </a>
+    <% if (kwd.mainKwd) { %> ->
+    <a href="/kwds/<%= kwd.mainKwd ? kwd.mainKwd : null %>"
+      ><%= kwd.mainKwd ? kwd.mainKwd.keyWord : null %></a
+    >
+    <% } %>
   </div>
   <% }) %>
 </div>
