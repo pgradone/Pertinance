@@ -1,4 +1,4 @@
-<h2>Edit KeyWorD <%= kwd.id %></h2>
+<h2>Edit KeyWorD "<%= kwd.keyWord %>" (<%= kwd.id %>)</h2>
 <form action="/kwds/<%= kwd.id %>?_method=PUT" method="POST">
   <%- include('_form_fields',)%>
   <a href="/kwds">Cancel</a>
