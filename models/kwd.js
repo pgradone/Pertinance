@@ -7,8 +7,9 @@ const kwdSchema = new mongoose.Schema({
     unique: true,
   },
   mainKwd: {
-    type: mongoose.Schema.Types.Mixed,
+    type: mongoose.Schema.Types.ObjectId,
     ref: 'Kwd',
+    default: null,
   },
   fld: {
     type: mongoose.Schema.Types.ObjectId,

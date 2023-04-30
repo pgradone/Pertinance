@@ -7,7 +7,7 @@
   <div>
     <label>field</label>
     <select name="fld">
-      <option selected label="---" value=""></option>
+      <option selected label="---" value="<%= null %>"></option>
       <% flds.forEach(fld => { %>
       <option label="<%=fld.field %>" value="<%= fld.id %>"></option>
       <% }) %>
@@ -18,9 +18,15 @@
 </form>
 <br />
 <% kwds.forEach(kwd => { %>
+<br />
 <div><%= kwd.keyWord %></div>
-<div><%= kwd.mainKwd %></div>
-<div><%= kwd.fld.field %></div>
+<div>
+  <a href="/kwds/<%= kwd.mainKwd ? kwd.mainKwd.id : null %>"
+    ><%= kwd.mainKwd ? kwd.mainKwd.keyWord : null %></a
+  >
+</div>
+<div><a href="/flds/<%= kwd.fld.id %>"><%= kwd.fld.field %></a></div>
+<br />
 <a href="/kwds/<%= kwd.id %>">View</a>
 <a href="/kwds/<%= kwd.id %>/edit">Edit</a>
 <%- include('../partials/deleteForm', { url: `/kwds/${kwd.id}` }) %> <% }) %>

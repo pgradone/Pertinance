@@ -6,7 +6,7 @@ const mongoose = require('mongoose');
 
 // Search KeyWorDs
 router.get('/', async (req, res) => {
-  let query = Kwd.find().populate('fieldText');
+  let query = Kwd.find();
   if (req.query.keyWord != null && req.query.keyWord !== '') {
     query = query.regex('keyWord', new RegExp(req.query.keyWord, 'i'));
   }
@@ -14,13 +14,14 @@ router.get('/', async (req, res) => {
     query = query.where('fld').equals(req.query.fld);
   }
   try {
-    const kwds = await query.populate('fld').exec();
+    const kwds = await query.populate('fld').populate('mainKwd').exec();
     const flds = await Fld.find();
-    res.render('kwds/index', {
+    const params = {
       kwds: kwds,
       flds: flds,
       searchOptions: req.query,
-    });
+    };
+    res.render('kwds/index', params);
   } catch (err) {
     console.error(err);
     res.redirect('/');
@@ -57,8 +58,12 @@ router.post('/', async (req, res) => {
 // Show KeyWorD Route
 router.get('/:id', async (req, res) => {
   try {
-    const kwd = await Kwd.findById(req.params.id).populate('fld').exec();
-    res.render('kwds/show', { kwd: kwd });
+    const kwd = await Kwd.findById(req.params.id)
+      .populate('fld')
+      .populate('mainKwd')
+      .exec();
+    const kwds = await Kwd.find({ mainKwd: kwd.id }).limit(10).exec();
+    res.render('kwds/show', { kwd: kwd, kwdsByMainKwd: kwds });
   } catch (err) {
     console.error(err);
     res.redirect('/');
@@ -126,10 +131,13 @@ async function renderFormPage(res, kwd, form, hasError = false) {
   try {
     const flds = await Fld.find({});
     const mainKwds = await Kwd.find({ mainKwd: null });
+    let mainKwd = await Kwd.findById(kwd.mainKwd).populate('mainKwd').exec();
+    mainKwd = mainKwd ? mainKwd : null;
     const params = {
       flds: flds,
       kwds: mainKwds,
       kwd: kwd,
+      mainKwd: mainKwd,
     };
     if (hasError) {
       if (form === 'edit') {

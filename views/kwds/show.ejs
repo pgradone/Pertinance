@@ -1,10 +1,18 @@
 <h2>
-  <div>keyWord:<%= kwd.keyWord %></div>
-  <div>Field: <%= kwd.fld.field %></div>
-  <div>main Keyword: <%= kwd.mainKwd %></div>
+  <div>
+    keyWord:<%= kwd.keyWord %> (<a
+      href="/kwds/<%= kwd.mainKwd ? kwd.mainKwd.id : null %>"
+      ><%= kwd.mainKwd ? kwd.mainKwd.keyWord : null%></a
+    >)
+  </div>
 </h2>
 <div>
-  <a href="/kwds/<%= kwd.id %>/edit">Edit</a>
-  <%- include('../partials/deleteForm',{url:`/kwds/${kwd.id}`}) %> <%=
-  kwd.fieldText %>
+  <h3>Field: <a href="/flds/<%= kwd.fld.id %>"><%= kwd.fld.field %></a></h3>
 </div>
+<div>
+  <a href="/kwds/<%= kwd.id %>/edit">Edit</a>
+  <%- include('../partials/deleteForm',{url:`/kwds/${kwd.id}`}) %>
+</div>
+<% if (kwdsByMainKwd.length > 0) { %>
+<h3 class="page-header">Keywords By Field</h3>
+<%- include('../partials/kwdList', { kwds: kwdsByMainKwd }) %> <% } %>

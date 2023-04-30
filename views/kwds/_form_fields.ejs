@@ -5,14 +5,16 @@
 <div>
   <label>main Keyword</label>
   <select name="mainKwd">
-    <% if (kwd.mainKwd != '') { %>
-    <option selected label="---" value=""></option>
-    <% } else { %> <% kwds.forEach(kwd => { %> <% if (kwd.id == kwd.mainKwd) {
-    %>
+    <% if (kwd.mainKwd) { %>
+    <option selected label="---" value="<%= null %>"></option>
+    <% } else { %>
+    <option label="---" value="<%= null %>"></option>
+    <% } %> <% kwds.forEach(kwd => { %> <% if (kwd.id ?? null == mainKwd.id ??
+    null) { %>
     <option selected label="<%=kwd.keyWord %>" value="<%= kwd.id %>"></option>
     <% } else { %>
     <option label="<%=kwd.keyWord %>" value="<%= kwd.id %>"></option>
-    <% } %> <% }) %> <%} %>
+    <% } %> <% }) %>
   </select>
 </div>
 <div>
