@@ -64,20 +64,22 @@ class Candidate {
       return true;
     });
   }
-  static async includedKwds(id) {
+  static async matchedKwds(id) {
     const candidate = await Candidate.findById(id);
     const skills = candidate.attributes.skills.toLowerCase();
-    const keywords = await Kwd.find().lean();
-    const result = {};
+    const keywords = await Kwd.find().populate('mainKwd').lean();
+    // const result = {};
+    const result = [];
 
     for (const kwd of keywords) {
       const regex = new RegExp(kwd.keyWord.toLowerCase(), 'g');
       const matches = skills.match(regex);
       if (matches && matches.length > 0) {
-        result[kwd.keyWord] = matches.length;
+        // result[kwd.keyWord] = matches.length;
+        kwd.wordCount = matches.length;
+        result.push(kwd);
       }
     }
-
     return result;
   }
 }

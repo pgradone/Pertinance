@@ -6,6 +6,6 @@
   Skills : <br />
   <%= candidate.attributes.skills %>
 </div>
-<% if (candiMainKwds.length > 0) { %>
-<h3 class="page-header">Main Keywords included in candidate's skills</h3>
-<%- include('../partials/kwdList', { kwds: candiMainKwds }) %> <% } %>
+<% if (matchedKwds.length > 0) { %>
+<h3 class="page-header">Keywords included in candidate's skills</h3>
+<%- include('../partials/kwdList', { kwds: matchedKwds }) %> <% } %>

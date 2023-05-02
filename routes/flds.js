@@ -43,7 +43,10 @@ router.post('/', async (req, res) => {
 router.get('/:id', async (req, res) => {
   try {
     const fld = await Fld.findById(req.params.id);
-    const kwds = await Kwd.find({ fld: fld.id }).limit(10).exec();
+    const kwds = await Kwd.find({ fld: fld.id })
+      .populate('mainKwd')
+      .limit(10)
+      .exec();
     console.log(kwds);
     res.render('flds/show', {
       fld: fld,
