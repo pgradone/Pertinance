@@ -82,6 +82,29 @@ class Candidate {
     }
     return result;
   }
+
+  static async matchedMainKwds(id) {
+    const matchedKwds = await this.matchedKwds(id);
+    const result = [];
+    for (const mKwd of matchedKwds) {
+      if (!mKwd.mainKwd) {
+        result.push(mKwd);
+      } else {
+        // console.log('calculating for secondary keyword');
+        // console.log()
+        console.log(mKwd._id + ' - ' + mKwd.mainKwd._id);
+        const secondaryKwds = matchedKwds;
+        // const secondaryKwds = matchedKwds.filter(
+        //   (member) => member.mainKwd === mKwd._id
+        // );
+        // console.log(secondaryKwds);
+        secondaryKwds.forEach((wd) => {
+          if (mKwd._id == wd._id) mKwd.wordCount += wd.wordCount;
+        });
+      }
+    }
+    return result;
+  }
 }
 
 module.exports = Candidate;
