@@ -1,8 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const Candidate = require('../models/candidate');
+const Kwd = require('../models/kwd');
 
-// All Candidates Route
+// All Candidates Route (index)
 router.get('/', async (req, res) => {
   let searchOptions = {};
   // let query = Candidate.find();
@@ -31,13 +32,7 @@ router.get('/', async (req, res) => {
     searchOptions.skills = req.query.skills;
   }
   try {
-    // query = searchOptions;
-    // console.log(query);
-    // searchOptions = { id: 79 };
-    console.log(searchOptions);
-    // const candidates = await query.exec();
     const candidates = await Candidate.find(searchOptions);
-    // console.log(candidates);
     res.render('candidates/index', {
       candidates: candidates,
       searchOptions: req.query,
@@ -48,9 +43,24 @@ router.get('/', async (req, res) => {
   }
 });
 
-// Show Candidate
-router.get('/:id', (req, res) => {
-  res.send('Show Document ' + req.params.id);
+// Show Candidate route
+router.get('/:id', async (req, res) => {
+  try {
+    console.log(req.params.id);
+    const candidate = await Candidate.findById(req.params.id);
+    // build a query to find all keywords
+    // included in a candidate's skills
+    // and build a list of the corresponding mainKeywords
+    const kwds = await Kwd.find();
+    console.log(candidate);
+    res.render('candidates/show', {
+      candidate: candidate,
+      candiMainKwds: kwds,
+    });
+  } catch (err) {
+    console.error(err);
+    res.redirect('/');
+  }
 });
 
 module.exports = router;

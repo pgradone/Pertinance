@@ -1,0 +1,7 @@
+<h2>Candidate (<%= candidate.id %>)</h2>
+<div>firstName : <%= candidate.attributes.firstName %></div>
+<div>lastName : <%= candidate.attributes.lastName %></div>
+<div>email1 : <%= candidate.attributes.email1 %></div>
+<% if (candiMainKwds.length > 0) { %>
+<h3 class="page-header">Main Keywords included in candidate's skills</h3>
+<%- include('../partials/kwdList', { kwds: candiMainKwds }) %> <% } %>

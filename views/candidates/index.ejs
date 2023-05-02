@@ -32,11 +32,10 @@
 <div><%= candidates.length %> candidates found</div>
 <br />
 <% candidates.forEach(candidate =>{ %>
-<div><%= candidate.id %></div>
-<div><%= candidate.attributes.firstName %></div>
-<div><%= candidate.attributes.lastName %></div>
-<div><%= candidate.attributes.email1 %></div>
-<a href="/candidates/<%= candidate.id %>">View</a>
+<a href="/candidates/<%= candidate.id %>"
+  ><%= candidate.attributes.firstName %> <%= candidate.attributes.lastName %>
+  {<%= candidate.id %>}</a
+>
 <br />
 <% }) %> <% } else { %>
 <div>No candidates found.</div>
