@@ -1,10 +1,11 @@
 <h2>
   <div>
-    keyWord:<%= kwd.keyWord %> (<a
-      href="/kwds/<%= kwd.mainKwd ? kwd.mainKwd.id : null %>"
-      ><%= kwd.mainKwd ? kwd.mainKwd.keyWord : null%></a
-    >)
+    keyWord:<%= kwd.keyWord %> <% if (kwd.mainKwd) %>
+    <a href="/kwds/<%= kwd.mainKwd ? kwd.mainKwd.id : null %>">
+      <%= kwd.mainKwd ? kwd.mainKwd.keyWord : null%></a
+    >
   </div>
+  <div><a href="/kwds/new">Add more KeyWords</a></div>
 </h2>
 <div>
   <h3>Field: <a href="/flds/<%= kwd.fld.id %>"><%= kwd.fld.field %></a></h3>

@@ -1,4 +1,5 @@
 const btoa = require('btoa');
+const Kwd = require('../models/kwd');
 
 class Candidate {
   static async fetchCandidates() {
@@ -62,6 +63,22 @@ class Candidate {
       }
       return true;
     });
+  }
+  static async includedKwds(id) {
+    const candidate = await Candidate.findById(id);
+    const skills = candidate.attributes.skills.toLowerCase();
+    const keywords = await Kwd.find().lean();
+    const result = {};
+
+    for (const kwd of keywords) {
+      const regex = new RegExp(kwd.keyWord.toLowerCase(), 'g');
+      const matches = skills.match(regex);
+      if (matches && matches.length > 0) {
+        result[kwd.keyWord] = matches.length;
+      }
+    }
+
+    return result;
   }
 }
 

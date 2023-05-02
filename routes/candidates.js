@@ -46,13 +46,13 @@ router.get('/', async (req, res) => {
 // Show Candidate route
 router.get('/:id', async (req, res) => {
   try {
-    console.log(req.params.id);
     const candidate = await Candidate.findById(req.params.id);
     // build a query to find all keywords
     // included in a candidate's skills
     // and build a list of the corresponding mainKeywords
-    const kwds = await Kwd.find();
-    console.log(candidate);
+    // const kwds = await Kwd.find();
+    const kwds = await Candidate.includedKwds(req.params.id);
+    console.log(kwds);
     res.render('candidates/show', {
       candidate: candidate,
       candiMainKwds: kwds,

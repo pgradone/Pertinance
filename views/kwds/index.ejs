@@ -1,4 +1,4 @@
-<h2>Search KeyWorDs</h2>
+<h2>KeyWorDs <a href="/kwds/new">Add</a></h2>
 <form action="/kwds" method="GET">
   <div>
     <label>keyWord</label>
@@ -13,20 +13,21 @@
       <% }) %>
     </select>
   </div>
-  <br />
   <button type="submit">Search</button>
 </form>
 <br />
 <% kwds.forEach(kwd => { %>
 <br />
-<div><%= kwd.keyWord %></div>
 <div>
-  <a href="/kwds/<%= kwd.mainKwd ? kwd.mainKwd.id : null %>"
-    ><%= kwd.mainKwd ? kwd.mainKwd.keyWord : null %></a
+  <%= kwd.keyWord %>
+  <a href="/kwds/<%= kwd.mainKwd ? kwd.mainKwd.id : null %>">
+    <%= kwd.mainKwd ? kwd.mainKwd.keyWord : null %></a
   >
 </div>
+<div></div>
 <div><a href="/flds/<%= kwd.fld.id %>"><%= kwd.fld.field %></a></div>
 <br />
 <a href="/kwds/<%= kwd.id %>">View</a>
 <a href="/kwds/<%= kwd.id %>/edit">Edit</a>
 <%- include('../partials/deleteForm', { url: `/kwds/${kwd.id}` }) %> <% }) %>
+<h2><a href="/kwds/new">Add more</a></h2>
