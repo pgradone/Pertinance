@@ -41,7 +41,6 @@ class Candidate {
   static async find(query) {
     const candidates = await Candidate.fetchCandidates();
     const keys = Object.keys(query);
-    console.log(query);
     return candidates.filter((candidate) => {
       for (const key of keys) {
         if (key !== 'id') {
@@ -64,13 +63,13 @@ class Candidate {
       return true;
     });
   }
+
   static async matchedKwds(id) {
     const candidate = await Candidate.findById(id);
     const skills = candidate.attributes.skills.toLowerCase();
     const keywords = await Kwd.find().populate('mainKwd').lean();
     // const result = {};
     const result = [];
-
     for (const kwd of keywords) {
       const regex = new RegExp(kwd.keyWord.toLowerCase(), 'g');
       const matches = skills.match(regex);
@@ -85,25 +84,22 @@ class Candidate {
 
   static async matchedMainKwds(id) {
     const matchedKwds = await this.matchedKwds(id);
-    const result = [];
-    for (const mKwd of matchedKwds) {
-      if (!mKwd.mainKwd) {
-        result.push(mKwd);
-      } else {
-        // console.log('calculating for secondary keyword');
-        // console.log()
-        console.log(mKwd._id + ' - ' + mKwd.mainKwd._id);
-        const secondaryKwds = matchedKwds;
-        // const secondaryKwds = matchedKwds.filter(
-        //   (member) => member.mainKwd === mKwd._id
-        // );
-        // console.log(secondaryKwds);
-        secondaryKwds.forEach((wd) => {
-          if (mKwd._id == wd._id) mKwd.wordCount += wd.wordCount;
-        });
+    const mainKeywords = [];
+    const secondaryKwds = [];
+
+    for (const kw of matchedKwds) {
+      !kw.mainKwd ? mainKeywords.push(kw) : secondaryKwds.push(kw);
+    }
+
+    for (const mKwd of mainKeywords) {
+      for (const sKwd of secondaryKwds) {
+        mKwd._id.toString() === sKwd.mainKwd._id.toString()
+          ? (mKwd.wordCount += sKwd.wordCount)
+          : null;
       }
     }
-    return result;
+
+    return mainKeywords;
   }
 }
 
