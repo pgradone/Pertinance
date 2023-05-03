@@ -5,6 +5,22 @@ const kwdSchema = new mongoose.Schema({
     type: String,
     required: true,
     unique: true,
+    validate: {
+      validator: function (v) {
+        const regex = new RegExp('^' + v + '$', 'i');
+        return this.constructor
+          .findOne({ keyWord: regex })
+          .then((doc) => {
+            const isDuplicate = doc && this.id !== doc.id;
+            return !isDuplicate;
+          })
+          .catch((err) => {
+            throw err;
+          });
+      },
+      message: (props) =>
+        `The keyword "${props.value}" already exists in the database.`,
+    },
   },
   mainKwd: {
     type: mongoose.Schema.Types.ObjectId,
