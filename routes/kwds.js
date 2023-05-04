@@ -116,6 +116,27 @@ router.delete('/:id', async (req, res) => {
   }
 });
 
+router.get('/import', (req, res) => {
+  res.render('import'); // render a form for uploading CSV file
+});
+
+router.post('/import', (req, res) => {
+  if (!req.files || !req.files.csv) {
+    return res.status(400).send('No CSV file uploaded');
+  }
+
+  const csvData = req.files.csv.data.toString();
+  Kwd.importCSV((err, docs) => {
+    if (err) {
+      console.error(err);
+      res.status(500).send('Error importing CSV data');
+    } else {
+      console.log(docs);
+      res.redirect('/kwds');
+    }
+  });
+});
+
 async function renderNewPage(res, kwd, hasError = false) {
   renderFormPage(res, kwd, 'new', hasError);
 }

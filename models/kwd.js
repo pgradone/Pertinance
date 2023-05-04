@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const getFileDialog = require('../public/javascripts/getFileDialog');
 
 const kwdSchema = new mongoose.Schema({
   keyWord: {
@@ -53,5 +54,28 @@ kwdSchema.pre('remove', function (next) {
     }
   });
 });
+
+kwdSchema.statics.importCSV = function (callback) {
+  getFileDialog((fileContent) => {
+    const lines = fileContent.trim().split('\n');
+    const headers = lines[0].split(';');
+    const data = [];
+    for (let i = 1; i < lines.length; i++) {
+      const obj = {};
+      const currentline = lines[i].split(';');
+      for (let j = 0; j < headers.length; j++) {
+        obj[headers[j].toLowerCase()] = currentline[j].trim();
+      }
+      data.push(obj);
+    }
+    this.insertMany(data, (err, docs) => {
+      if (err) {
+        callback(err);
+      } else {
+        callback(null, docs);
+      }
+    });
+  });
+};
 
 module.exports = mongoose.model('Kwd', kwdSchema);
