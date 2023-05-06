@@ -7,6 +7,11 @@ const app = express();
 const expressLayouts = require('express-ejs-layouts');
 const bodyParser = require('body-parser');
 const methodOverride = require('method-override');
+const multer = require('multer');
+const upload = multer();
+app.post('/', upload.none(), (req, res) => {
+  // req.body will now contain the parsed form data
+});
 
 const indexRouter = require('./routes/index');
 const docRouter = require('./routes/docs');
@@ -39,27 +44,5 @@ app.use('/flds', fldRouter);
 app.use('/kwds', kwdRouter);
 app.use('/maps', mapRouter);
 app.use('/candidates', candidateRouter);
-
-// fill the candidates table here
-// const Candidate = require('./models/candidate');
-
-// async function seedDatabase() {
-//   // Check if the collection is already populated
-//   const count = await Candidate.countDocuments();
-//   if (count > 0) return;
-
-//   // If the collection is empty, fetch the data and save it to the database
-//   const candidatesData = await Candidate.candidateData;
-//   console.log(candidatesData);
-//   await Candidate.create(candidatesData);
-// }
-
-// seedDatabase()
-//   .then(() => {
-//     console.log('Database seeded successfully');
-//   })
-//   .catch((err) => {
-//     console.error('Error seeding database:', err);
-//   });
 
 app.listen(process.env.PORT || 3000);

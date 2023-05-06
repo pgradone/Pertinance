@@ -100,11 +100,10 @@ class Candi {
   // }
 }
 
-candidateSchema.statics.injectInMongoDB = async function () {
+candidateSchema.statics.injectInMongoDB = async function (candidates) {
   try {
-    const candi = await Candi.fetchCandidates();
     const Candidate = mongoose.model('Candidate');
-    const insertedCandidates = await Candidate.insertMany(candi);
+    const insertedCandidates = await Candidate.insertMany(candidates);
     console.log(`Inserted ${insertedCandidates.length} candidates`);
   } catch (err) {
     console.error(err);

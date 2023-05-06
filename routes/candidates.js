@@ -52,7 +52,7 @@ router.post('/inject', async (req, res) => {
       searchOptions[key] = value;
     }
   }
-  console.log(searchOptions);
+  console.log(req.body);
   try {
     const candidates = await Candi.find(searchOptions);
     console.log(searchOptions);
