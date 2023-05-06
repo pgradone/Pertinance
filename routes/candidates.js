@@ -62,4 +62,15 @@ router.get('/:id', async (req, res) => {
   }
 });
 
+// Inject Candidates routes inside MongoDB
+const inject = async (req, res) => {
+  try {
+    await Candidate.injectInMongoDB();
+    res.send('Candidates have been injected into MongoDB!');
+  } catch (err) {
+    console.log(err.stack);
+    res.status(500).send('Error injecting candidates into MongoDB!');
+  }
+};
+
 module.exports = router;

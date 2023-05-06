@@ -105,6 +105,23 @@ class Candidate {
     }
     return result;
   }
+
+  static async injectInMongoDB(query = {}) {
+    const uri = process.env.MONGO_URI;
+    const client = new MongoClient(uri);
+    try {
+      await client.connect();
+      const database = client.db('myDatabase');
+      const collection = database.collection('candidates');
+      const candidates = await Candidate.find(query);
+      const result = await collection.insertMany(candidates);
+      console.log(`${result.insertedCount} candidates were inserted.`);
+    } catch (err) {
+      console.log(err.stack);
+    } finally {
+      await client.close();
+    }
+  }
 }
 
 module.exports = Candidate;
