@@ -43,24 +43,13 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-const checkContentType = (req, res, next) => {
-  const contentType = req.headers['content-type'];
-  if (
-    contentType &&
-    (contentType.includes('application/x-www-form-urlencoded') ||
-      contentType.includes('multipart/form-data'))
-  ) {
-    next();
-  } else {
-    res.status(400).send('Bad Request: Invalid Content-Type header');
-  }
-};
-
 // Inject Candidates Route
-router.post('/inject', checkContentType, async (req, res) => {
-  console.log(req.query);
+router.post('/inject', async (req, res) => {
   let searchOptions = {};
   for (const [key, value] of Object.entries(req.query)) {
+    // if (key === 'injectUrl') {
+    //   continue;
+    // }
     if (value && value.trim() !== '') {
       searchOptions[key] = value;
     }
