@@ -47,7 +47,6 @@ router.get('/:id', async (req, res) => {
       .populate('mainKwd')
       .limit(10)
       .exec();
-    console.log(kwds);
     res.render('flds/show', {
       fld: fld,
       kwdsByFld: kwds,

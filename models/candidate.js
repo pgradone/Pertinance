@@ -3,14 +3,10 @@ const Kwd = require('../models/kwd');
 const mongoose = require('mongoose');
 const { query } = require('express');
 
-<<<<<<< HEAD
 const candidateSchema = new mongoose.Schema();
 class Candi {
-=======
-class Candidate {
   static candidates = null;
 
->>>>>>> 2e400e0c97b8a4094f915678d90a4b5fcf174d24
   static async fetchCandidates() {
     if (this.candidates !== null) {
       return this.candidates;
@@ -28,10 +24,7 @@ class Candidate {
     this.candidates = data;
     return data;
   }
-<<<<<<< HEAD
 
-=======
->>>>>>> 2e400e0c97b8a4094f915678d90a4b5fcf174d24
   static async findById(id) {
     const candidates = await Candi.fetchCandidates();
     return candidates.find((c) => c.id === id) || null;
@@ -40,20 +33,12 @@ class Candidate {
   static async find(query) {
     const candidates = await Candi.fetchCandidates();
     const keys = Object.keys(query);
-<<<<<<< HEAD
     // console.log(query);
-    return candidates.filter((candidate) => {
-      for (const key of keys) {
-        if (key !== 'id') {
-          if (
-            !candidate.attributes[key]
-=======
     return candidates.filter((candidate) =>
       keys.every((key) =>
         key === 'id'
           ? candidate[key].includes(query[key])
           : candidate.attributes[key]
->>>>>>> 2e400e0c97b8a4094f915678d90a4b5fcf174d24
               .toLowerCase()
               .includes(query[key].toLowerCase())
       )
@@ -80,20 +65,7 @@ class Candidate {
 
   static async matchedMainKwds(id) {
     const matchedKwds = await this.matchedKwds(id);
-<<<<<<< HEAD
     const result = [];
-    for (const mKwd of matchedKwds) {
-      if (!mKwd.mainKwd) {
-        result.push(mKwd);
-      } else {
-        console.log(mKwd._id + ' - ' + mKwd.mainKwd._id);
-        const secondaryKwds = matchedKwds;
-        secondaryKwds.forEach((wd) => {
-          if (mKwd._id == wd._id) mKwd.wordCount += wd.wordCount;
-        });
-=======
-    const mainKeywords = [];
-    const secondaryKwds = [];
 
     for (const kw of matchedKwds) {
       !kw.mainKwd ? mainKeywords.push(kw) : secondaryKwds.push(kw);
@@ -104,7 +76,6 @@ class Candidate {
         mKwd._id.toString() === sKwd.mainKwd._id.toString()
           ? (mKwd.wordCount += sKwd.wordCount)
           : null;
->>>>>>> 2e400e0c97b8a4094f915678d90a4b5fcf174d24
       }
     }
 
