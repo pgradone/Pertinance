@@ -1,5 +1,5 @@
 <h2>Candidates</h2>
-<form method="POST" action="/">
+<form method="GET" action="/candidates">
   <div>
     <label>id</label>
     <input type="number" name="id" value="<%= searchOptions.id %>" />
@@ -26,6 +26,7 @@
     <br />
   </div>
   <br /><button type="submit">Search</button>
+  <input type="hidden" name="injectUrl" value="/candidates/inject" />
 </form>
 <form method="POST" action="/candidates/inject">
   <br /><button type="submit">Inject Candidates</button>

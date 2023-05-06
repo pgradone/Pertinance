@@ -6,6 +6,9 @@ const { Candi, Candidate } = require('../models/candidate');
 router.get('/', async (req, res) => {
   let searchOptions = {};
   for (const [key, value] of Object.entries(req.query)) {
+    if (key === 'injectUrl') {
+      continue;
+    }
     if (value && value.trim() !== '') {
       searchOptions[key] = value;
     }
@@ -40,7 +43,8 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-router.post('/', async (req, res) => {
+// Inject Candidates Route
+router.post('/inject', async (req, res) => {
   console.log(req.body);
   let searchOptions = {};
   for (const [key, value] of Object.entries(req.body)) {
@@ -48,6 +52,7 @@ router.post('/', async (req, res) => {
       searchOptions[key] = value;
     }
   }
+  console.log(searchOptions);
   try {
     const candidates = await Candi.find(searchOptions);
     console.log(searchOptions);
@@ -55,10 +60,6 @@ router.post('/', async (req, res) => {
     res.send(
       candidates.length + ' candidates have been injected into MongoDB!'
     );
-    // res.render('candidates/index', {
-    //   candidates: candidates,
-    //   searchOptions: req.query,
-    // });
   } catch (err) {
     console.log(err.stack);
     res.status(500).send('Error injecting candidates into MongoDB!');
