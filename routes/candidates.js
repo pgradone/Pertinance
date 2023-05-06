@@ -1,38 +1,17 @@
 const express = require('express');
 const router = express.Router();
-const Candidate = require('../models/candidate');
-const Kwd = require('../models/kwd');
+const { Candi, Candidate } = require('../models/candidate');
 
-// All Candidates Route (index)
+// All Candi Route (index)
 router.get('/', async (req, res) => {
   let searchOptions = {};
-  // let query = Candidate.find();
-  if (req.query.id != null && req.query.id !== '') {
-    searchOptions.id = req.query.id;
-    // query = query.req.query.id;
-  }
-  if (req.query.firstName != null && req.query.firstName !== '') {
-    // query = query.regex('firstName', new RegExp(req.query.firstName, 'i'));
-    searchOptions.firstName = req.query.firstName;
-  }
-  if (req.query.lastName != null && req.query.lastName !== '') {
-    // query = query.regex('lastName', new RegExp(req.query.lastName, 'i'));
-    searchOptions.lastName = req.query.lastName;
-  }
-  if (req.query.title != null && req.query.title !== '') {
-    // query = query.regex('title', new RegExp(req.query.title, 'i'));
-    searchOptions.title = req.query.title;
-  }
-  if (req.query.email1 != null && req.query.email1 !== '') {
-    // query = query.regex('email1', new RegExp(req.query.email1, 'i'));
-    searchOptions.email1 = req.query.email1;
-  }
-  if (req.query.skills != null && req.query.skills !== '') {
-    // query = query.regex('skills', new RegExp(req.query.skills, 'i'));
-    searchOptions.skills = req.query.skills;
+  for (const [key, value] of Object.entries(req.query)) {
+    if (value && value.trim() !== '') {
+      searchOptions[key] = value;
+    }
   }
   try {
-    const candidates = await Candidate.find(searchOptions);
+    const candidates = await Candi.find(searchOptions);
     res.render('candidates/index', {
       candidates: candidates,
       searchOptions: req.query,
@@ -43,15 +22,14 @@ router.get('/', async (req, res) => {
   }
 });
 
-// Show Candidate route
+// Show Candi route
 router.get('/:id', async (req, res) => {
   try {
-    const candidate = await Candidate.findById(req.params.id);
+    const candidate = await Candi.findById(req.params.id);
     // find all keywords matching this candidate's skills
     // and build a list of the corresponding mainKeywords
     // const kwds = await Candidate.matchedKwds(req.params.id);
-    const kwds = await Candidate.matchedMainKwds(req.params.id);
-    // console.log(kwds);
+    const kwds = await Candi.matchedMainKwds(req.params.id);
     res.render('candidates/show', {
       candidate: candidate,
       matchedKwds: kwds,
@@ -62,15 +40,29 @@ router.get('/:id', async (req, res) => {
   }
 });
 
-// Inject Candidates routes inside MongoDB
-const inject = async (req, res) => {
+router.post('/', async (req, res) => {
+  console.log(req.body);
+  let searchOptions = {};
+  for (const [key, value] of Object.entries(req.body)) {
+    if (value && value.trim() !== '') {
+      searchOptions[key] = value;
+    }
+  }
   try {
-    await Candidate.injectInMongoDB();
-    res.send('Candidates have been injected into MongoDB!');
+    const candidates = await Candi.find(searchOptions);
+    console.log(searchOptions);
+    await Candidate.injectInMongoDB(candidates);
+    res.send(
+      candidates.length + ' candidates have been injected into MongoDB!'
+    );
+    // res.render('candidates/index', {
+    //   candidates: candidates,
+    //   searchOptions: req.query,
+    // });
   } catch (err) {
     console.log(err.stack);
     res.status(500).send('Error injecting candidates into MongoDB!');
   }
-};
+});
 
 module.exports = router;

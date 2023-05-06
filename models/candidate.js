@@ -1,7 +1,10 @@
 const btoa = require('btoa');
 const Kwd = require('../models/kwd');
+const mongoose = require('mongoose');
+const { query } = require('express');
 
-class Candidate {
+const candidateSchema = new mongoose.Schema();
+class Candi {
   static async fetchCandidates() {
     const apiUrl = process.env.boond_url + '/candidates';
     const authString = btoa(process.env.JFUser + ':' + process.env.JFAuth);
@@ -16,32 +19,15 @@ class Candidate {
     return candidates;
   }
 
-  // static async addCandidates() {
-  //   try {
-  //     const candidatesData = await Candidate.fetchCandidates();
-  //     const data = candidatesData.map((candidate) => ({
-  //       Candidate_ID: candidate.id,
-  //       firstName: candidate.attributes.firstName,
-  //       lastName: candidate.attributes.lastName,
-  //       skills: candidate.attributes.skills,
-  //       title: candidate.attributes.title,
-  //       email1: candidate.attributes.email1,
-  //     }));
-  //     console.log(data);
-  //   } catch (err) {
-  //     console.error(err);
-  //   }
-  // }
-
   static async findById(id) {
-    const candidates = await Candidate.fetchCandidates();
+    const candidates = await Candi.fetchCandidates();
     return candidates.find((c) => c.id === id) || null;
   }
 
   static async find(query) {
-    const candidates = await Candidate.fetchCandidates();
+    const candidates = await Candi.fetchCandidates();
     const keys = Object.keys(query);
-    console.log(query);
+    // console.log(query);
     return candidates.filter((candidate) => {
       for (const key of keys) {
         if (key !== 'id') {
@@ -65,7 +51,7 @@ class Candidate {
     });
   }
   static async matchedKwds(id) {
-    const candidate = await Candidate.findById(id);
+    const candidate = await Candi.findById(id);
     const skills = candidate.attributes.skills.toLowerCase();
     const keywords = await Kwd.find().populate('mainKwd').lean();
     // const result = {};
@@ -90,14 +76,8 @@ class Candidate {
       if (!mKwd.mainKwd) {
         result.push(mKwd);
       } else {
-        // console.log('calculating for secondary keyword');
-        // console.log()
         console.log(mKwd._id + ' - ' + mKwd.mainKwd._id);
         const secondaryKwds = matchedKwds;
-        // const secondaryKwds = matchedKwds.filter(
-        //   (member) => member.mainKwd === mKwd._id
-        // );
-        // console.log(secondaryKwds);
         secondaryKwds.forEach((wd) => {
           if (mKwd._id == wd._id) mKwd.wordCount += wd.wordCount;
         });
@@ -106,22 +86,38 @@ class Candidate {
     return result;
   }
 
-  static async injectInMongoDB(query = {}) {
-    const uri = process.env.MONGO_URI;
-    const client = new MongoClient(uri);
-    try {
-      await client.connect();
-      const database = client.db('myDatabase');
-      const collection = database.collection('candidates');
-      const candidates = await Candidate.find(query);
-      const result = await collection.insertMany(candidates);
-      console.log(`${result.insertedCount} candidates were inserted.`);
-    } catch (err) {
-      console.log(err.stack);
-    } finally {
-      await client.close();
-    }
-  }
+  // static async addCandidates() {
+  //   try {
+  //     const candidatesData = await Candidate.fetchCandidates();
+  //     const data = candidatesData.map((candidate) => ({
+  //       Candidate_ID: candidate.id,
+  //       firstName: candidate.attributes.firstName,
+  //       lastName: candidate.attributes.lastName,
+  //       skills: candidate.attributes.skills,
+  //       title: candidate.attributes.title,
+  //       email1: candidate.attributes.email1,
+  //     }));
+  //     console.log(data);
+  //   } catch (err) {
+  //     console.error(err);
+  //   }
+  // }
 }
 
-module.exports = Candidate;
+candidateSchema.statics.injectInMongoDB = async function () {
+  try {
+    const candi = await Candi.fetchCandidates();
+    const Candidate = mongoose.model('Candidate');
+    const insertedCandidates = await Candidate.insertMany(candi);
+    console.log(`Inserted ${insertedCandidates.length} candidates`);
+  } catch (err) {
+    console.error(err);
+  }
+};
+
+const Candidate = mongoose.model('Candidate', candidateSchema);
+
+module.exports = {
+  Candi,
+  Candidate,
+};

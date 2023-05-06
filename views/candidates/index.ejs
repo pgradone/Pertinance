@@ -1,6 +1,5 @@
-<h2>Search Candidates</h2>
-<form method="POST" action="/candidates/inject">
-  <br /><button type="submit">Inject all Candidates</button>
+<h2>Candidates</h2>
+<form method="POST" action="/">
   <div>
     <label>id</label>
     <input type="number" name="id" value="<%= searchOptions.id %>" />
@@ -27,6 +26,9 @@
     <br />
   </div>
   <br /><button type="submit">Search</button>
+</form>
+<form method="POST" action="/candidates/inject">
+  <br /><button type="submit">Inject Candidates</button>
 </form>
 <br />
 <% if (candidates && candidates.length) { %>
