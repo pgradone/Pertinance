@@ -43,19 +43,30 @@ router.get('/:id', async (req, res) => {
   }
 });
 
+const checkContentType = (req, res, next) => {
+  const contentType = req.headers['content-type'];
+  if (
+    contentType &&
+    (contentType.includes('application/x-www-form-urlencoded') ||
+      contentType.includes('multipart/form-data'))
+  ) {
+    next();
+  } else {
+    res.status(400).send('Bad Request: Invalid Content-Type header');
+  }
+};
+
 // Inject Candidates Route
-router.post('/inject', async (req, res) => {
-  console.log(req.body);
+router.post('/inject', checkContentType, async (req, res) => {
+  console.log(req.query);
   let searchOptions = {};
-  for (const [key, value] of Object.entries(req.body)) {
+  for (const [key, value] of Object.entries(req.query)) {
     if (value && value.trim() !== '') {
       searchOptions[key] = value;
     }
   }
-  console.log(req.body);
   try {
     const candidates = await Candi.find(searchOptions);
-    console.log(searchOptions);
     await Candidate.injectInMongoDB(candidates);
     res.send(
       candidates.length + ' candidates have been injected into MongoDB!'
