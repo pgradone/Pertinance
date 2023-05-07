@@ -70,7 +70,6 @@ class Candi {
     for (const kw of matchedKwds) {
       !kw.mainKwd ? mainKeywords.push(kw) : secondaryKwds.push(kw);
     }
-
     for (const mKwd of mainKeywords) {
       for (const sKwd of secondaryKwds) {
         mKwd._id.toString() === sKwd.mainKwd._id.toString()
