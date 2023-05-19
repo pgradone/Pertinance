@@ -21,12 +21,14 @@
 <% kwds.forEach(kwd => { %>
 <div>
   <%= kwd.keyWord %>
-  <a href="/kwds/<%= kwd.mainKwd ? kwd.mainKwd.id : null %>">
-    <%= kwd.mainKwd ? kwd.mainKwd.keyWord : null %></a
-  >
+  <div class="list-link">
+    <a href="/kwds/<%= kwd.mainKwd ? kwd.mainKwd.id : null %>">
+      <%= kwd.mainKwd ? kwd.mainKwd.keyWord : null %></a
+    >
+  </div>
 </div>
 <div class="btn-row">
-  <div>
+  <div class="list-link">
     <a class="list-link" href="/flds/<%= kwd.fld.id %>"><%= kwd.fld.field %></a>
   </div>
   <a class="btn btn-primary" href="/kwds/<%= kwd.id %>">View</a>
