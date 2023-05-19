@@ -20,6 +20,8 @@
 <% docs.forEach(doc => { %>
 <div><%= doc.docName %></div>
 <div><%= doc.docText %></div>
-<a class="btn btn-primary" href="/docs/<%= doc.id %>">View</a>
-<a class="btn btn-primary" href="/docs/<%= doc.id %>/edit">Edit</a>
+<div class="btn-row">
+  <a class="btn btn-primary" href="/docs/<%= doc.id %>">View</a>
+  <a class="btn btn-primary" href="/docs/<%= doc.id %>/edit">Edit</a>
+</div>
 <%- include('../partials/deleteForm', { url: `/docs/${doc.id}` }) %> <% }) %>

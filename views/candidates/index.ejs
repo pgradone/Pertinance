@@ -36,11 +36,10 @@
 <div><%= candidates.length %> candidates found</div>
 <br />
 <% candidates.forEach(candidate =>{ %> <%= candidate.attributes.firstName %> <%=
-candidate.attributes.lastName %> {<%= candidate.id %>}<a
-  class="btn btn-primary"
-  href="/candidates/<%= candidate.id %>"
-  >view</a
->
+candidate.attributes.lastName %> {<%= candidate.id %>}
+<div class="btn-row">
+  <a class="btn btn-primary" href="/candidates/<%= candidate.id %>">view</a>
+</div>
 <br />
 <% }) %> <% } else { %>
 <div>No candidates found.</div>

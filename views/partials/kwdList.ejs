@@ -6,6 +6,9 @@
       ><%= kwd.mainKwd ? kwd.mainKwd.keyWord : null %></a
     >
     <%= kwd.wordCount %>
+    <div class="btn-row">
+      <a class="btn btn-primary" href="/kwds/<%= kwd.id %>">View</a>
+    </div>
   </div>
   <% }) %>
 </div>
