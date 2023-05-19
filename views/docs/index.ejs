@@ -23,5 +23,7 @@
 <div class="btn-row">
   <a class="btn btn-primary" href="/docs/<%= doc.id %>">View</a>
   <a class="btn btn-primary" href="/docs/<%= doc.id %>/edit">Edit</a>
+
+  <%- include('../partials/deleteForm', { url: `/docs/${doc.id}` }) %>
 </div>
-<%- include('../partials/deleteForm', { url: `/docs/${doc.id}` }) %> <% }) %>
+<% }) %>

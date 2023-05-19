@@ -7,9 +7,10 @@
   <button class="btn btn-primary" type="submit">Search</button>
 </form>
 <% flds.forEach(fld => { %>
-<div><%= fld.field %></div>
 <div class="btn-row">
+  <div><%= fld.field %></div>
   <a class="btn btn-primary" href="/flds/<%= fld.id %>">View</a>
   <a class="btn btn-primary" href="/flds/<%= fld.id %>/edit">Edit</a>
+  <%- include('../partials/deleteForm', { url: `/flds/${fld.id}`}) %>
 </div>
-<%- include('../partials/deleteForm', { url: `/flds/${fld.id}`}) %> <% }) %>
+<% }) %>
