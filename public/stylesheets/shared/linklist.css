@@ -1,0 +1,14 @@
+:root {
+  --list-link-font-weight:300;
+}
+
+.list-link a {
+  text-decoration: none;
+  color: var(--color-text-light);
+  font-weight: var(--list-link-font-weight);
+  padding: 1rem;
+}
+
+.list-link a:hover, .header-title:hover {
+  color: white;
+}

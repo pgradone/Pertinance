@@ -35,12 +35,15 @@
 <% if (candidates && candidates.length) { %>
 <div><%= candidates.length %> candidates found</div>
 <br />
-<% candidates.forEach(candidate =>{ %> <%= candidate.attributes.firstName %> <%=
-candidate.attributes.lastName %> {<%= candidate.id %>}
+<% candidates.forEach(candidate =>{ %>
 <div class="btn-row">
-  <a class="btn btn-primary" href="/candidates/<%= candidate.id %>">view</a>
+  <div class="list-link">
+    <a href="/candidates/<%= candidate.id %>">
+      <%= candidate.attributes.firstName %> <%= candidate.attributes.lastName %>
+      {<%= candidate.id %>}</a
+    >
+  </div>
 </div>
-<br />
 <% }) %> <% } else { %>
 <div>No candidates found.</div>
 <% } %>
