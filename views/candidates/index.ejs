@@ -25,20 +25,21 @@
     <textarea name="skills"><%= searchOptions.skills %></textarea>
     <br />
   </div>
-  <br /><button type="submit">Search</button>
+  <br /><button class="btn btn-primary" type="submit">Search</button>
   <input type="hidden" name="injectUrl" value="candidates/inject" />
 </form>
 <form method="POST" action="/candidates/inject">
-  <br /><button type="submit">Inject Candidates</button>
+  <br /><button class="btn btn-primary" type="submit">Inject Candidates</button>
 </form>
 <br />
 <% if (candidates && candidates.length) { %>
 <div><%= candidates.length %> candidates found</div>
 <br />
-<% candidates.forEach(candidate =>{ %>
-<a href="/candidates/<%= candidate.id %>"
-  ><%= candidate.attributes.firstName %> <%= candidate.attributes.lastName %>
-  {<%= candidate.id %>}</a
+<% candidates.forEach(candidate =>{ %> <%= candidate.attributes.firstName %> <%=
+candidate.attributes.lastName %> {<%= candidate.id %>}<a
+  class="btn btn-primary"
+  href="/candidates/<%= candidate.id %>"
+  >view</a
 >
 <br />
 <% }) %> <% } else { %>

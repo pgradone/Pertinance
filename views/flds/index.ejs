@@ -8,6 +8,6 @@
 </form>
 <% flds.forEach(fld => { %>
 <div><%= fld.field %></div>
-<a href="/flds/<%= fld.id %>">View</a>
-<a href="/flds/<%= fld.id %>/edit">Edit</a>
+<a class="btn btn-primary" href="/flds/<%= fld.id %>">View</a>
+<a class="btn btn-primary" href="/flds/<%= fld.id %>/edit">Edit</a>
 <%- include('../partials/deleteForm', { url: `/flds/${fld.id}`}) %> <% }) %>

@@ -5,10 +5,15 @@
       <%= kwd.mainKwd ? kwd.mainKwd.keyWord : null%></a
     >
   </div>
-  <div><a href="/kwds/new">Add more KeyWords</a></div>
+  <div><a class="btn btn-primary" href="/kwds/new">Add more KeyWords</a></div>
 </h2>
 <div>
-  <h3>Field: <a href="/flds/<%= kwd.fld.id %>"><%= kwd.fld.field %></a></h3>
+  <h3>
+    Field:
+    <a class="btn btn-primary" href="/flds/<%= kwd.fld.id %>"
+      ><%= kwd.fld.field %></a
+    >
+  </h3>
 </div>
 <div>
   <a href="/kwds/<%= kwd.id %>/edit">Edit</a>

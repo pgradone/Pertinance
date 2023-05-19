@@ -27,7 +27,7 @@
 <div></div>
 <div><a href="/flds/<%= kwd.fld.id %>"><%= kwd.fld.field %></a></div>
 <br />
-<a href="/kwds/<%= kwd.id %>">View</a>
-<a href="/kwds/<%= kwd.id %>/edit">Edit</a>
+<a class="btn btn-primary" href="/kwds/<%= kwd.id %>">View</a>
+<a class="btn btn-primary" href="/kwds/<%= kwd.id %>/edit">Edit</a>
 <%- include('../partials/deleteForm', { url: `/kwds/${kwd.id}` }) %> <% }) %>
-<h2><a href="/kwds/new">Add more</a></h2>
+<h2><a class="btn btn-primary" href="/kwds/new">Add more</a></h2>
