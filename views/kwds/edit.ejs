@@ -1,6 +1,8 @@
 <h2>Edit KeyWorD "<%= kwd.keyWord %>" (<%= kwd.id %>)</h2>
 <form action="/kwds/<%= kwd.id %>?_method=PUT" method="POST">
   <%- include('_form_fields',)%>
-  <a class="btn btn-primary" href="/kwds">Cancel</a>
-  <button class="btn btn-primary" type="submit">Update</button>
+  <div class="form-row form-row-end btn-row">
+    <a class="btn btn-primary" href="/kwds">Cancel</a>
+    <button class="btn btn-primary" type="submit">Update</button>
+  </div>
 </form>

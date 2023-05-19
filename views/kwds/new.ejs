@@ -1,6 +1,8 @@
 <h2>New KeyWorD</h2>
 <form action="/kwds" method="POST">
   <%- include('_form_fields',{ kwd: kwd })%>
-  <a class="btn btn-primary" href="/kwds">Cancel</a>
-  <button class="btn btn-primary" type="submit">Create</button>
+  <div class="form-row form-row-end btn-row">
+    <a class="btn btn-primary" href="/kwds">Cancel</a>
+    <button class="btn btn-primary" type="submit">Create</button>
+  </div>
 </form>

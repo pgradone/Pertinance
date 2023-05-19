@@ -4,19 +4,33 @@
   </h2>
 </div>
 <form action="/docs" method="GET">
-  <label>Id_Doc</label>
-  <input type="number" name="Id_Doc" value="<%= searchOptions.Id_Doc %>" />
-  <label>DocName</label>
-  <input type="text" name="docName" value="<%= searchOptions.docName %>" />
-  <br />
-  <label>DocText</label>
-  <textarea type="text" name="docText"><%= searchOptions.docText %></textarea>
-  <label>DocElement</label>
-  <input
-    type="text"
-    name="docElement"
-    value="<%= searchOptions.docElement %>"
-  />
+  <div class="form-row">
+    <div class="form-item">
+      <label>Id_Doc</label>
+      <input type="number" name="Id_Doc" value="<%= searchOptions.Id_Doc %>" />
+    </div>
+    <div class="form-item">
+      <label>DocName</label>
+      <input type="text" name="docName" value="<%= searchOptions.docName %>" />
+    </div>
+    <br />
+  </div>
+  <div class="form-row">
+    <div class="form-item">
+      <label>DocText</label>
+      <textarea type="text" name="docText">
+<%= searchOptions.docText %></textarea
+      >
+    </div>
+    <div class="form-item">
+      <label>DocElement</label>
+      <input
+        type="text"
+        name="docElement"
+        value="<%= searchOptions.docElement %>"
+      />
+    </div>
+  </div>
   <br />
   <button class="btn btn-primary" type="submit">Search</button>
 </form>

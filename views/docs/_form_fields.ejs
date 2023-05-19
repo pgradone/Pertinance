@@ -1,21 +1,25 @@
-<div>
-  <label>Id_Doc</label>
-  <input type="number" name="Id_Doc" min="1" value="<%= doc.Id_Doc %>" />
-</div>
-<div>
-  <label>docName*</label>
-  <input type="text" name="docName" value="<%= doc.docName %>" />
-</div>
-<br />
-<div>
-  <label>docText</label>
-  <textarea type="text" name="docText"><%= doc.docText %></textarea>
+<div class="form-row">
+  <div class="form-item">
+    <label>Id_Doc</label>
+    <input type="number" name="Id_Doc" min="1" value="<%= doc.Id_Doc %>" />
+  </div>
+  <div class="form-item">
+    <label>docName*</label>
+    <input type="text" name="docName" value="<%= doc.docName %>" />
+  </div>
 </div>
 <br />
-<div>
-  <label>docElement</label>
-  <select name="docElement">
-    <option label="AO" value="AO"></option>
-    <option label="CV" value="CV"></option>
-  </select>
+<div class="form-row">
+  <div class="form-item form-item-no-grow">
+    <label>docText</label>
+    <textarea type="text" name="docText"><%= doc.docText %></textarea>
+  </div>
+  <br />
+  <div class="form-item">
+    <label>docElement</label>
+    <select name="docElement">
+      <option label="AO" value="AO"></option>
+      <option label="CV" value="CV"></option>
+    </select>
+  </div>
 </div>

@@ -1,12 +1,9 @@
-<h2 class="page-header">Field : <%= fld.field %></h2>
-<div><a class="btn btn-primary" href="/kwds/new">Add more KeyWords</a></div>
-<div>
-  <a
-    class="btn btn-primary"
-    class="btn btn-primary"
-    href="/flds/<%= fld.id %>/edit"
-    >Edit</a
-  >
+<div class="btn-row">
+  <h2 class="page-header">Field : <%= fld.field %></h2>
+  <a class="btn btn-primary" href="/kwds/new"> + </a>
+</div>
+<div class="btn-row">
+  <a class="btn btn-primary" href="/flds/<%= fld.id %>/edit">Edit</a>
   <%- include('../partials/deleteForm',{url:`/flds/${fld.id}`}) %>
 </div>
 <% if (kwdsByFld.length > 0) { %>

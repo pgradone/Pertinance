@@ -1,30 +1,30 @@
 <h2>KeyWorDs <a class="btn btn-primary" href="/kwds/new">+</a></h2>
 <form action="/kwds" method="GET">
-  <div>
-    <label>keyWord</label>
-    <input type="text" name="keyWord" value="<%= searchOptions.keyWord %>" />
-  </div>
-  <div>
-    <label>field</label>
-    <select name="fld">
-      <option selected label="---" value="<%= null %>"></option>
-      <% flds.forEach(fld => { %>
-      <option label="<%=fld.field %>" value="<%= fld.id %>"></option>
-      <% }) %>
-    </select>
+  <div class="form-row">
+    <div class="form-item">
+      <label>keyWord</label>
+      <input type="text" name="keyWord" value="<%= searchOptions.keyWord %>" />
+    </div>
+    <div class="form-item">
+      <label>field</label>
+      <select name="fld">
+        <option selected label="---" value="<%= null %>"></option>
+        <% flds.forEach(fld => { %>
+        <option label="<%=fld.field %>" value="<%= fld.id %>"></option>
+        <% }) %>
+      </select>
+    </div>
   </div>
   <button class="btn btn-primary" type="submit">Search</button>
 </form>
 <br />
 <% kwds.forEach(kwd => { %>
-<br />
 <div>
   <%= kwd.keyWord %>
   <a href="/kwds/<%= kwd.mainKwd ? kwd.mainKwd.id : null %>">
     <%= kwd.mainKwd ? kwd.mainKwd.keyWord : null %></a
   >
 </div>
-<div></div>
 <div class="btn-row">
   <div>
     <a class="list-link" href="/flds/<%= kwd.fld.id %>"><%= kwd.fld.field %></a>

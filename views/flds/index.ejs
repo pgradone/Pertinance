@@ -1,12 +1,16 @@
 <h2 class="page-header">
   FieLDs <a class="btn btn-primary" href="/flds/new">+</a>
 </h2>
-<form>
-  <div>
-    <label>field</label>
-    <input type="text" name="field" value="<%= searchOptions.field %>" />
+<form action="/fields" method="GET">
+  <div class="form-row">
+    <div class="form-item">
+      <label>field</label>
+      <input type="text" name="field" value="<%= searchOptions.field %>" />
+    </div>
   </div>
-  <button class="btn btn-primary" type="submit">Search</button>
+  <div class="form-row form-row-end">
+    <button class="btn btn-primary" type="submit">Search</button>
+  </div>
 </form>
 <% flds.forEach(fld => { %>
 <div class="btn-row">
