@@ -2,6 +2,8 @@
   --color-btn-primary-background: hsl(var(--color-base-hue), 100%, 83%);
   --color-btn-primary-text: hsl(var(--color-base-hue), 100%, 20%);
   --color-btn-border: black;
+  --color-btn-danger-background: hsl(var(--color-danger-hue), 100%, 83%);
+  --color-btn-danger-text: black;
 }
 
 .btn {
@@ -18,4 +20,9 @@
 .btn-primary {
   color: var(--color-btn-primary-text);
   background-color: var(--color-btn-primary-background);
+}
+
+.btn-danger {
+  color: var(--color-btn-danger-text);
+  background-color: var(--color-btn-danger-background);
 }
